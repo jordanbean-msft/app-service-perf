@@ -1,4 +1,4 @@
-location       = "southcentralus"
-region         = "USSC"
-appName        = "appServicePerf"
-environment    = "DEV"
+location    = "southcentralus"
+region      = "USSC"
+appName     = "appServicePerf"
+environment = "DEV"
