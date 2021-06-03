@@ -17,13 +17,16 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_VAR_sqlServerAdminUsername: ${{ secrets.TF_VAR_sqlServerAdminUsername }}
+      TF_VAR_sqlServerAdminPassword: ${{ secrets.TF_VAR_sqlServerAdminPassword }}
+      TF_VAR_azureAdAdminObjectId: ${{ secrets.TF_VAR_azureAdAdminObjectId }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Print environment variables
-        run: env
+        run: env | sort
       - name: Print directory tree
-        run: tree -C
+        run: tree
       - name: Terraform Format
         uses: hashicorp/terraform-github-actions@master
         with:
