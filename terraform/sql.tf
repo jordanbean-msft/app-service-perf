@@ -20,8 +20,8 @@ resource "azurerm_mssql_database" "sqlServerDatabase" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
-  name = "dbLogging"
-  target_resource_id = azurerm_mssql_database.sqlServerDatabase.id
+  name                       = "dbLogging"
+  target_resource_id         = azurerm_mssql_database.sqlServerDatabase.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "SQLInsights"

@@ -6,7 +6,7 @@ resource "azurerm_application_insights" "appInsights" {
 }
 
 resource "azurerm_log_analytics_workspace" "logAnalyticsWorkspace" {
-  name = "log-${local.longName}"
+  name                = "log-${local.longName}"
   resource_group_name = azurerm_resource_group.resourceGroup.name
-  location = azurerm_resource_group.resourceGroup.location
+  location            = azurerm_resource_group.resourceGroup.location
 }

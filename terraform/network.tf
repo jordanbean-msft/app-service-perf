@@ -14,8 +14,8 @@ resource "azurerm_subnet" "appServiceSubnet" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "vNetLogging" {
-  name = "vNetLogging"
-  target_resource_id = azurerm_virtual_network.vNet.id
+  name                       = "vNetLogging"
+  target_resource_id         = azurerm_virtual_network.vNet.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "VMProtectionAlerts"

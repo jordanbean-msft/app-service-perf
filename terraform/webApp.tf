@@ -25,8 +25,8 @@ resource "azurerm_app_service" "appService" {
 }
 
 resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
-  name = "appServiceLogging"
-  target_resource_id = azurerm_app_service_plan.appServicePlan.id
+  name                       = "appServiceLogging"
+  target_resource_id         = azurerm_app_service_plan.appServicePlan.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "AppServiceAntivirusScanAuditLogs"
