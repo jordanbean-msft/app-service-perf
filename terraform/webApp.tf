@@ -39,3 +39,6 @@ resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" 
   principal_id         = azurerm_app_service.appService.identity[0].principal_id
 }
 
+output "appServiceName" {
+  value = azurerm_app_service.appService.name
+}
