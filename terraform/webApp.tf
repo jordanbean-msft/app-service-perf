@@ -35,9 +35,6 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
     category = "AppServiceConsoleLogs"
   }
   log {
-    category = "AppServiceHTTPLogs"
-  }
-  log {
     category = "AppServiceEnvironmentPlatformLogs"
   }
   log {
