@@ -14,6 +14,21 @@ variable "environment" {
   type = string
 }
 
+variable "sqlServerAdminUsername" {
+  type      = string
+  sensitive = true
+}
+
+variable "sqlServerAdminPassword" {
+  type      = string
+  sensitive = true
+}
+
+variable "azureAdAdminObjectId" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   longName = "${var.appName}-${var.region}-${var.environment}"
 }
