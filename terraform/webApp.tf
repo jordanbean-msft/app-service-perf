@@ -32,3 +32,10 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
     category = "AllMetrics"
   }
 }
+
+resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" {
+  scope = azurerm_storage_account.storageAccount.id
+  role_definition_name = "Storage Account Contributor"
+  principal_id = azurerm_app_service.appService.identity[0].principal_id
+}
+
