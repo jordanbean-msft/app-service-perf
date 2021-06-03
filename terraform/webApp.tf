@@ -38,9 +38,6 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
     category = "AppServiceEnvironmentPlatformLogs"
   }
   log {
-    category = "AppServiceAuditLogs"
-  }
-  log {
     category = "AppServiceFileAuditLogs"
   }
   metric {
