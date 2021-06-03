@@ -1,5 +1,5 @@
 resource "azurerm_mssql_server" "sqlServer" {
-  name                         = "sql-${local.longName}"
+  name                         = lower("sql-${local.longName}")
   resource_group_name          = azurerm_resource_group.resourceGroup.name
   location                     = azurerm_resource_group.resourceGroup.location
   version                      = "12.0"
