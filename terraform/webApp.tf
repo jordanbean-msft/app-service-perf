@@ -18,17 +18,21 @@ resource "azurerm_app_service" "appService" {
   identity {
     type = "SystemAssigned"
   }
-  site_config {
-    # ip_restriction = [
-    #   {
-    #     action                    = "Allow"
-    #     name                      = "AllowVnet"
-    #     priority                  = 1
-    #     virtual_network_subnet_id = azurerm_subnet.appServiceSubnet.id
-    #     ip_address                = null
-    #     headers                   = null
-    #     service_tag               = null
-    #   }
-    # ]
+  app_settings {
+    APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.appInsights.instrumentation_key
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appInsights.connection_string
   }
+  # site_config {
+  #   ip_restriction = [
+  #     {
+  #       action                    = "Allow"
+  #       name                      = "AllowVnet"
+  #       priority                  = 1
+  #       virtual_network_subnet_id = azurerm_subnet.appServiceSubnet.id
+  #       ip_address                = null
+  #       headers                   = null
+  #       service_tag               = null
+  #     }
+  #   ]
+  # }
 }
