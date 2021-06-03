@@ -22,17 +22,40 @@ resource "azurerm_app_service" "appService" {
     APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.appInsights.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appInsights.connection_string
   }
-  # site_config {
-  #   ip_restriction = [
-  #     {
-  #       action                    = "Allow"
-  #       name                      = "AllowVnet"
-  #       priority                  = 1
-  #       virtual_network_subnet_id = azurerm_subnet.appServiceSubnet.id
-  #       ip_address                = null
-  #       headers                   = null
-  #       service_tag               = null
-  #     }
-  #   ]
-  # }
+}
+
+resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
+  name = "appServiceLogging"
+  target_resource_id = azurerm_app_service_plan.appServicePlan.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
+  log {
+    category = "AppServiceAntivirusScanAuditLogs"
+  }
+  log {
+    category = "AppServiceConsoleLogs"
+  }
+  log {
+    category = "AppServiceHTTPLogs"
+  }
+  log {
+    category = "AppServiceEnvironmentPlatformLogs"
+  }
+  log {
+    category = "AppServiceAuditLogs"
+  }
+  log {
+    category = "AppServiceFileAuditLogs"
+  }
+  log {
+    category = "AppServiceAppLogs"
+  }
+  log {
+    category = "AppServiceIPSecAuditLogs"
+  }
+  log {
+    category = "AppServicePlatformLogs"
+  }
+  metric {
+    category = "AllMetrics"
+  }
 }

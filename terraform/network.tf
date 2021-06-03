@@ -12,3 +12,15 @@ resource "azurerm_subnet" "appServiceSubnet" {
   address_prefixes     = ["10.0.1.0/24"]
   service_endpoints    = ["Microsoft.Web", "Microsoft.Storage"]
 }
+
+resource "azurerm_monitor_diagnostic_setting" "vNetLogging" {
+  name = "vNetLogging"
+  target_resource_id = azurerm_virtual_network.vNet.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
+  log {
+    category = "VMProtectionAlerts"
+  }
+  metric {
+    category = "AllMetrics"
+  }
+}

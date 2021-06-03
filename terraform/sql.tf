@@ -18,3 +18,45 @@ resource "azurerm_mssql_database" "sqlServerDatabase" {
   collation = "SQL_Latin1_General_CP1_CI_AS"
   sku_name  = "Basic"
 }
+
+resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
+  name = "dbLogging"
+  target_resource_id = azurerm_mssql_database.sqlServerDatabase.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
+  log {
+    category = "SQLInsights"
+  }
+  log {
+    category = "AutomaticTuning"
+  }
+  log {
+    category = "QueryStoreRuntimeStatistics"
+  }
+  log {
+    category = "QueryStoreWaitStatistics"
+  }
+  log {
+    category = "Errors"
+  }
+  log {
+    category = "DatabaseWaitStatistics"
+  }
+  log {
+    category = "Timeouts"
+  }
+  log {
+    category = "Blocks"
+  }
+  log {
+    category = "Deadlocks"
+  }
+  metric {
+    category = "Basic"
+  }
+  metric {
+    category = "InstanceAndAppAdvanced"
+  }
+  metric {
+    category = "WorkloadManagement"
+  }
+}
