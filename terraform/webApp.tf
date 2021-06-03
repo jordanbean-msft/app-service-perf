@@ -18,8 +18,8 @@ resource "azurerm_app_service" "appService" {
   identity {
     type = "SystemAssigned"
   }
-  app_settings ddddddd {
-    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.appInsights.instrumentation_key
+  app_settings = {
+    APPINSIGHTS_INSTRUMENTATIONKEY        = azurerm_application_insights.appInsights.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appInsights.connection_string
   }
   # site_config {
