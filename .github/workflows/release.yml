@@ -1,4 +1,4 @@
-name: Release
+name: BuildRelease
 
 on:
   push:
@@ -9,8 +9,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['5.0.x']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup .Net Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+      - name: Publish
+        run: dotnet publish -c Release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: AppServicePerf/bin/Release/net5.0/publish/
+
   release:
     name: Release
+    needs: build
     runs-on: ubuntu-latest
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
