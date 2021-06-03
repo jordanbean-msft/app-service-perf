@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Print environment variables
+        run: env
+      - name: Print directory tree
+        run: tree -C
       - name: Terraform Format
         uses: hashicorp/terraform-github-actions@master
         with:
