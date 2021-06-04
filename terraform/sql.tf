@@ -60,3 +60,15 @@ resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
     category = "WorkloadManagement"
   }
 }
+
+resource "azurerm_key_vault_secret" "sqlServerAdminUsername" {
+  name         = "sqlServerAdminUsername"
+  key_vault_id = azurerm_key_vault.keyVault.id
+  value        = var.sqlServerAdminUsername
+}
+
+resource "azurerm_key_vault_secret" "sqlServerAdminPassword" {
+  name         = "sqlServerAdminPassword"
+  key_vault_id = azurerm_key_vault.keyVault.id
+  value        = var.sqlServerAdminPassword
+}

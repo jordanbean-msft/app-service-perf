@@ -24,6 +24,7 @@ resource "azurerm_app_service" "appService" {
     "AzureAD:Domain"                      = var.webAppDomain
     "AzureAD:ClientId"                    = var.webAppClientId
     "AzureAD:TenantId"                    = var.webAppTenantId
+    "AzureAD:ClientSecret"                = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.webAppClientSecret.name}"
   }
 }
 
@@ -35,6 +36,13 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
     category = "AllMetrics"
   }
 }
+
+resource "azurerm_role_assignment" "managedIdentityWebAppKeyVaultSecretsUserRoleAssignment" {
+  scope                = azurerm_key_vault.keyVault.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_app_service.appService.identity[0].principal_id
+}
+
 
 resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" {
   scope                = azurerm_storage_account.storageAccount.id

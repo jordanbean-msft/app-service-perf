@@ -44,6 +44,11 @@ variable "webAppTenantId" {
   sensitive = true
 }
 
+variable "webAppClientSecret" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   longName = "${var.appName}-${var.region}-${var.environment}"
 }
