@@ -8,5 +8,6 @@ namespace AppServicePerf.Models {
         public int ID { get; set; }
         public string Name { get; set; }
         public Uri Uri { get; set; }
+        public string FileName { get; set; }
     }
 }

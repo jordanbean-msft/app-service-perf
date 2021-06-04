@@ -19,6 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Image[0].Uri)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image[0].FileName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +33,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Uri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

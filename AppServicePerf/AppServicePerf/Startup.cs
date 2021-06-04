@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AppServicePerf.Data;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
 
 namespace AppServicePerf {
     public class Startup {
@@ -27,6 +29,11 @@ namespace AppServicePerf {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddAzureClients(builder => {
+                builder.UseCredential(new DefaultAzureCredential());
+                builder.AddBlobServiceClient(Configuration.GetSection("Storage"));
+                builder.ConfigureDefaults(Configuration.GetSection("AzureDefaults"));
+            });
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
 
