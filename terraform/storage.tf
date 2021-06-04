@@ -21,7 +21,7 @@ resource "azurerm_storage_container" "storageAccountContainer" {
 
 resource "azurerm_monitor_diagnostic_setting" "storageLogging" {
   name                       = "storageLogging"
-  target_resource_id         = azurerm_storage_account.storageAccount.id
+  target_resource_id         = "${azurerm_storage_account.storageAccount.id}/blobServices/default/"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "StorageRead"
