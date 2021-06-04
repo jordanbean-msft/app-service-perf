@@ -100,7 +100,8 @@ jobs:
           tf_actions_working_dir: terraform/.
       - id: output
         run: |
-          echo "::set-output name=appServiceName::$(echo ${{ steps.terraform_output.outputs.tf_actions_output }} | jq -r '.appServiceName.value')"
+          APPSERVICENAME=$(echo ${{ steps.terraform_output.outputs.tf_actions_output }} | jq -r '.appServiceName.value')
+          echo "::set-output name=appServiceName::$APPSERVICENAME"
       outputs:
         appServiceName: ${{ steps.output.outputs.appServiceName }}
 
