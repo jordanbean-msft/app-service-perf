@@ -14,11 +14,18 @@ resource "azurerm_role_assignment" "githubActionKeyVaultAdministratorRole" {
   principal_id         = var.githubActionsObjectId
 }
 
+resource "time_sleep" "waitForRbacPropagation" {
+  create_duration = "30s"
+  depends_on = [
+    azurerm_role_assignment.githubActionKeyVaultAdministratorRole
+  ]
+}
+
 resource "azurerm_key_vault_secret" "webAppClientSecret" {
   name         = "webAppClientSecret"
   key_vault_id = azurerm_key_vault.keyVault.id
   value        = var.webAppClientSecret
   depends_on = [
-    azurerm_role_assignment.githubActionKeyVaultAdministratorRole
+    time_sleep.waitForRbacPropagation
   ]
 }
