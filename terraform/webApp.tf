@@ -47,7 +47,7 @@ resource "azurerm_role_assignment" "managedIdentityWebAppKeyVaultSecretsUserRole
 
 resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" {
   scope                = azurerm_storage_account.storageAccount.id
-  role_definition_name = "Storage Account Blob Data Contributor"
+  role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_app_service.appService.identity[0].principal_id
 }
 
