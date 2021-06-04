@@ -25,19 +25,19 @@ variable "sqlServerAdminPassword" {
 }
 
 variable "azureAdAdminObjectId" {
-  type      = string
+  type = string
 }
 
 variable "webAppClientId" {
-  type      = string
+  type = string
 }
 
 variable "webAppDomain" {
-  type      = string
+  type = string
 }
 
 variable "webAppTenantId" {
-  type      = string
+  type = string
 }
 
 variable "webAppClientSecret" {
