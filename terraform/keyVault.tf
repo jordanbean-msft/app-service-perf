@@ -11,7 +11,7 @@ resource "azurerm_key_vault" "keyVault" {
 resource "azurerm_role_assignment" "githubActionKeyVaultAdministratorRole" {
   scope                = azurerm_key_vault.keyVault.id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = var.azureAdAdminObjectId
+  principal_id         = var.githubActionsObjectId
 }
 
 resource "azurerm_key_vault_secret" "webAppClientSecret" {

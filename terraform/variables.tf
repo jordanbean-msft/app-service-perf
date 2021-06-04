@@ -26,27 +26,27 @@ variable "sqlServerAdminPassword" {
 
 variable "azureAdAdminObjectId" {
   type      = string
-  sensitive = true
 }
 
 variable "webAppClientId" {
   type      = string
-  sensitive = true
 }
 
 variable "webAppDomain" {
   type      = string
-  sensitive = true
 }
 
 variable "webAppTenantId" {
   type      = string
-  sensitive = true
 }
 
 variable "webAppClientSecret" {
   type      = string
   sensitive = true
+}
+
+variable "githubActionsObjectId" {
+  type = string
 }
 
 locals {
