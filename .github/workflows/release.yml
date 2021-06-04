@@ -91,6 +91,19 @@ jobs:
           tf_actions_version: 0.14.8
           tf_actions_subcommand: apply
           tf_actions_working_dir: terraform/.
+      - name: 'Terraform Output'
+        id: terraform_output
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8 
+          tf_actions_subcommand: output
+          tf_actions_working_dir: terraform/.
+      - id: output
+        run: |
+          echo "::set-output name=appServiceName::$(echo ${{ steps.terraform_output.outputs.tf_actions_output }} | jq -r '.appServiceName.value')"
+      outputs:
+        appServiceName: ${{ steps.output.outputs.appServiceName }}
+
   release-webApp:
     name: Release-WebApp
     needs: release-infrastructure
@@ -111,5 +124,5 @@ jobs:
       - name: Deploy WebApp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: $(terraform output appServiceName)
+          app-name: ${{ needs.release-infrastructure.outputs.appServiceName }}
           package: AppServicePerf
