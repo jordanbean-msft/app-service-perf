@@ -40,7 +40,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          path: ${{ github.workspace }}/AppServicePerf/bin/Release/net5.0/publish
+          path: ${{ github.workspace }}/AppServicePerf/AppServicePerf/bin/Release/net5.0/publish
 
   release-infrastructure:
     name: Release-Infrastructure
