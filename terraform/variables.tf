@@ -50,6 +50,6 @@ variable "webAppClientSecret" {
 }
 
 locals {
-  longName = "${var.appName}-${var.region}-${var.environment}"
-  shortName= "${var.appName}${var.region}${var.environment}"
+  longName  = "${var.appName}-${var.region}-${var.environment}"
+  shortName = "${var.appName}${var.region}${var.environment}"
 }
