@@ -90,7 +90,7 @@ jobs:
         with:
           tf_actions_version: 0.14.8
           tf_actions_subcommand: apply
-          tf_actions_working_dir: terraform/.d
+          tf_actions_working_dir: terraform/.
   release-webApp:
     name: Release-WebApp
     needs: release-infrastructure
