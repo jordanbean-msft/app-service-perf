@@ -25,6 +25,7 @@ resource "azurerm_app_service" "appService" {
     "AzureAD:ClientId"                    = var.webAppClientId
     "AzureAD:TenantId"                    = var.webAppTenantId
     "AzureAD:ClientSecret"                = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.webAppClientSecret.name}"
+    "Storage:ServiceUri"                  = azurerm_storage_account.storageAccount.primary_blob_endpoint
   }
 }
 
@@ -46,7 +47,7 @@ resource "azurerm_role_assignment" "managedIdentityWebAppKeyVaultSecretsUserRole
 
 resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" {
   scope                = azurerm_storage_account.storageAccount.id
-  role_definition_name = "Storage Account Contributor"
+  role_definition_name = "Storage Account Blob Data Contributor"
   principal_id         = azurerm_app_service.appService.identity[0].principal_id
 }
 
