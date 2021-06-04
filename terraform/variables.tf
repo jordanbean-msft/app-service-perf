@@ -29,6 +29,21 @@ variable "azureAdAdminObjectId" {
   sensitive = true
 }
 
+variable "webAppClientId" {
+  type      = string
+  sensitive = true
+}
+
+variable "webAppDomain" {
+  type      = string
+  sensitive = true
+}
+
+variable "webAppTenantId" {
+  type      = string
+  sensitive = true
+}
+
 locals {
   longName = "${var.appName}-${var.region}-${var.environment}"
 }
