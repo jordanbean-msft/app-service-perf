@@ -8,8 +8,17 @@ resource "azurerm_key_vault" "keyVault" {
   tenant_id                       = var.webAppTenantId
 }
 
+resource "azurerm_role_assignment" "githubActionKeyVaultAdministratorRole" {
+  scope                = azurerm_key_vault.keyVault.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = var.azureAdAdminObjectId
+}
+
 resource "azurerm_key_vault_secret" "webAppClientSecret" {
   name         = "webAppClientSecret"
   key_vault_id = azurerm_key_vault.keyVault.id
   value        = var.webAppClientSecret
+  depends_on = [
+    azurerm_role_assignment.githubActionKeyVaultAdministratorRole
+  ]
 }
