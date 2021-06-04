@@ -102,8 +102,8 @@ jobs:
         run: |
           export APPSERVICENAME=$(echo ${{ steps.terraform_output.outputs.tf_actions_output }} | jq -r '.appServiceName.value')
           echo "::set-output name=appServiceName::${APPSERVICENAME}"
-      outputs:
-        appServiceName: ${{ steps.output.outputs.appServiceName }}
+    outputs:
+      appServiceName: ${{ steps.output.outputs.appServiceName }}
 
   release-webApp:
     name: Release-WebApp
