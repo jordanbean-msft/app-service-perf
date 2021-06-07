@@ -13,10 +13,10 @@ resource "azurerm_mssql_server" "sqlServer" {
 }
 
 resource "azurerm_mssql_firewall_rule" "sqlServerFirewallRule" {
-  name                = "sqlServerFirewallRule"
-  server_id           = azurerm_mssql_server.sqlServer.id
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+  name             = "sqlServerFirewallRule"
+  server_id        = azurerm_mssql_server.sqlServer.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_mssql_database" "sqlServerDatabase" {
