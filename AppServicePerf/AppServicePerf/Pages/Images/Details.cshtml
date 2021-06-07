@@ -29,6 +29,14 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Image.FileName)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Image.File)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@String.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(@Model.Image.File))" width="100" height="100"/>
+            @*@Html.DisplayFor(model => model.Image.File);*@
+        </dd>
+    </dl>
     </dl>
 </div>
 <div>

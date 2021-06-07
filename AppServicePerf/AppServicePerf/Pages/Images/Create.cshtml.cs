@@ -48,9 +48,16 @@ namespace AppServicePerf.Pages.Images
             FileName = HttpUtility.HtmlEncode(untrustedFileName);
 
             var client = _blobServiceClient.GetBlobContainerClient("images");
-            var result = await client.UploadBlobAsync(FileName, file.OpenReadStream());
 
-            Image.Uri = new Uri(client.Uri, FileName); 
+            try {
+                var result = await client.UploadBlobAsync(FileName, file.OpenReadStream());
+            } 
+            catch (Exception ex) {
+                throw;
+            }
+
+            Image.Uri = new Uri(client.Uri, FileName);
+            Image.FileName = FileName;
 
             _context.Images.Add(Image);
             await _context.SaveChangesAsync();
