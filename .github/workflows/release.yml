@@ -18,6 +18,8 @@ jobs:
     defaults:
       run:
         working-directory: ./AppServicePerf
+    env:
+      CONFIGURATION: Debug
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,15 +34,15 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
       - name: Test
         run: dotnet test --no-restore --verbosity normal
       - name: Publish
-        run: dotnet publish -c Release
+        run: dotnet publish -c ${{ env.CONFIGURATION }}
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          path: ${{ github.workspace }}/AppServicePerf/AppServicePerf/bin/Release/net5.0/publish
+          path: ${{ github.workspace }}/AppServicePerf/AppServicePerf/bin/${{ env.CONFIGURATION }}/net5.0/publish
 
   release-infrastructure:
     name: Release-Infrastructure
