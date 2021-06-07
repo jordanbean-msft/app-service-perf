@@ -26,7 +26,7 @@ resource "azurerm_app_service" "appService" {
     "AzureAD:TenantId"                        = var.webAppTenantId
     "AzureAD:ClientSecret"                    = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.webAppClientSecret.name}"
     "Storage:ServiceUri"                      = azurerm_storage_account.storageAccount.primary_blob_endpoint
-    "ConnectionStrings:AppServicePerfContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
+    "ConnectionStrings:AppServicePerfContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};Authentication=Active Directory Interactive"
   }
 }
 

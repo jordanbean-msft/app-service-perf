@@ -45,8 +45,11 @@ namespace AppServicePerf {
                 .AddMvcOptions(options => { })
                 .AddMicrosoftIdentityUI();
 
-            services.AddDbContext<AppServicePerfContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfContext")));
+            services.AddDbContext<AppServicePerfContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfContext"));
+                options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
+                }
+            );
 
             services.AddDatabaseDeveloperPageExceptionFilter();
         }

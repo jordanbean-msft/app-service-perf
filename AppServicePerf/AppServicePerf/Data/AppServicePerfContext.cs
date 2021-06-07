@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AppServicePerf.Models;
+using Microsoft.Data.SqlClient;
+using Azure.Identity;
+using Azure.Core;
 
 namespace AppServicePerf.Data
 {
