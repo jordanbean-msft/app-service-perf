@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Azure.Storage.Blobs;
 using System.IO;
 using System.Web;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace AppServicePerf.Pages.Images
 {
@@ -18,12 +19,14 @@ namespace AppServicePerf.Pages.Images
     {
         private readonly AppServicePerf.Data.AppServicePerfContext _context;
         private readonly BlobServiceClient _blobServiceClient;
+        private readonly IDistributedCache _distributedCache;
         public string FileName { get; set; }
 
-        public CreateModel(AppServicePerf.Data.AppServicePerfContext context, BlobServiceClient blobServiceClient)
+        public CreateModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache)
         {
             _context = context;
             _blobServiceClient = blobServiceClient;
+            _distributedCache = distributedCache;
             FileName = "Not Available";
         }
 
@@ -55,12 +58,31 @@ namespace AppServicePerf.Pages.Images
             catch (Exception ex) {
                 throw;
             }
+            string imageFileHash;
+
+            using (var memoryStream = new MemoryStream()) {
+                try {
+                    await file.CopyToAsync(memoryStream);
+                }
+                catch (Exception ex) {
+                    throw;
+                }
+
+                byte[] tempImageArray = memoryStream.ToArray();
+
+                using (var sha1 = new System.Security.Cryptography.SHA1CryptoServiceProvider()) {
+                    imageFileHash = string.Concat(sha1.ComputeHash(tempImageArray).Select(x => x.ToString("X2")));
+                }
+            }
 
             Image.Uri = new Uri(client.Uri, FileName);
             Image.FileName = FileName;
+            Image.Hash = imageFileHash;
 
             _context.Images.Add(Image);
             await _context.SaveChangesAsync();
+
+            await _distributedCache.RemoveAsync("images");
 
             return RedirectToPage("./Index");
         }

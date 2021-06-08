@@ -12,6 +12,8 @@ namespace AppServicePerf.Models {
         public Uri Uri { get; set; }
         public string FileName { get; set; }
 
+        public string Hash { get; set; }
+
         [NotMapped]
         public byte[] File { get; set; }
     }

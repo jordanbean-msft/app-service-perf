@@ -14,7 +14,7 @@ namespace AppServicePerf.Pages.Images
 {
     public class IndexModel : PageModel
     {
-        private readonly AppServicePerf.Data.AppServicePerfContext _context;
+        private readonly AppServicePerfContext _context;
         private readonly IDistributedCache _distributedCache;
 
         public IndexModel(AppServicePerfContext context, IDistributedCache distributedCache)

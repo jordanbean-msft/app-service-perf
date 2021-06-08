@@ -10,18 +10,21 @@ using AppServicePerf.Models;
 using Azure.Storage.Blobs;
 using System.IO;
 using System.Web;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace AppServicePerf.Pages.Images
 {
     public class DeleteModel : PageModel
     {
-        private readonly AppServicePerf.Data.AppServicePerfContext _context;
+        private readonly AppServicePerfContext _context;
         private readonly BlobServiceClient _blobServiceClient;
+        private readonly IDistributedCache _distributedCache;
 
-        public DeleteModel(AppServicePerf.Data.AppServicePerfContext context, BlobServiceClient blobServiceClient)
+        public DeleteModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache)
         {
             _context = context;
             _blobServiceClient = blobServiceClient;
+            _distributedCache = distributedCache;
         }
 
         [BindProperty]
@@ -65,6 +68,8 @@ namespace AppServicePerf.Pages.Images
 
                 _context.Images.Remove(Image);
                 await _context.SaveChangesAsync();
+
+                await _distributedCache.RemoveAsync("images");
             }
 
             return RedirectToPage("./Index");
