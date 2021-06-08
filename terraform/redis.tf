@@ -12,4 +12,7 @@ resource "azurerm_key_vault_secret" "cacheConnectionSecret" {
   name         = "CacheConnection"
   key_vault_id = azurerm_key_vault.keyVault.id
   value        = azurerm_redis_cache.redisCache.primary_connection_string
+  depends_on = [
+    time_sleep.waitForRbacPropagation
+  ]
 }
