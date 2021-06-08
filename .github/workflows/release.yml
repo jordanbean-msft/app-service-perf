@@ -61,6 +61,10 @@ jobs:
       TF_VAR_webAppDomain: ${{ secrets.WEB_APP_DOMAIN }}
       TF_VAR_webAppTenantId: ${{ secrets.AZURE_AD_TENANT_ID }}
       TF_VAR_githubActionsObjectId: ${{ secrets.TF_VAR_githubActionsObjectId }}
+      environment: dev
+    defaults:
+      run:
+        working-directory: terraform/.
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -68,43 +72,26 @@ jobs:
         run: env | sort
       - name: Print directory tree
         run: tree
-      - name: Terraform Format
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: fmt
-          tf_actions_working_dir: terraform/.
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Format      
+        id: fmt
+        run: terraform fmt
       - name: Terraform Init
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: init
-          tf_actions_working_dir: terraform/.
+        id: init
+        run: terraform init
       - name: Terraform Validate
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: validate
-          tf_actions_working_dir: terraform/.
+        id: validate
+        run: terraform validate
       - name: Terraform Plan
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: plan
-          tf_actions_working_dir: terraform/.
+        id: plan
+        run: terraform plan
       - name: Terraform Apply
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8
-          tf_actions_subcommand: apply
-          tf_actions_working_dir: terraform/.
+        id: apply
+        run: terraform apply -var-file=${{ env.environment }}
       - name: 'Terraform Output'
         id: terraform_output
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.8 
-          tf_actions_subcommand: output
-          tf_actions_working_dir: terraform/.
+        run: terraform output
       - name: Outputs
         id: output
         run: |
