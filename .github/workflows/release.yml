@@ -69,31 +69,44 @@ jobs:
         run: env | sort
       - name: Print directory tree
         run: tree
-      - name: Terraform Setup
-        uses: hashicorp/setup-terraform@v1
-      - name: Terraform Format      
-        id: fmt
-        run: terraform fmt
-        working-directory: ./terraform
+      - name: Terraform Format
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8
+          tf_actions_subcommand: fmt
+          tf_actions_working_dir: terraform/.
       - name: Terraform Init
-        id: init
-        run: terraform init
-        working-directory: ./terraform
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8
+          tf_actions_subcommand: init
+          tf_actions_working_dir: terraform/.
       - name: Terraform Validate
-        id: validate
-        run: terraform validate
-        working-directory: ./terraform
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8
+          tf_actions_subcommand: validate
+          tf_actions_working_dir: terraform/.
       - name: Terraform Plan
-        id: plan
-        run: terraform plan
-        working-directory: ./terraform
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8
+          tf_actions_subcommand: plan
+          tf_actions_working_dir: terraform/.
       - name: Terraform Apply
-        id: apply
-        run: terraform apply -var-file=environments/${{ env.environment }}.tfvars
-        working-directory: ./terraform
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8
+          tf_actions_subcommand: apply
+          args: '-var-file=${{ env.environment }}.tfvars'
+          tf_actions_working_dir: terraform/.
       - name: 'Terraform Output'
         id: terraform_output
-        run: terraform output
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.14.8 
+          tf_actions_subcommand: output
+          tf_actions_working_dir: terraform/.
         working-directory: ./terraform
       - name: Outputs
         id: output
