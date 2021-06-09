@@ -14,7 +14,7 @@ steps:
     displayName: Install Terraform
     inputs:
       terraformVersion: 1.0.0
-  - task: TerraformTaskV1@2
+  - task: TerraformTaskV1@1
     displayName: Terraform - Format
     inputs:
       provider: 'azurerm'
@@ -25,7 +25,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
-  - task: TerraformTaskV1@2
+  - task: TerraformTaskV1@1
     displayName: Terraform - Initialize
     inputs:
       provider: 'azurerm'
@@ -36,7 +36,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
-  - task: TerraformTaskV1@2
+  - task: TerraformTaskV1@1
     displayName: Terraform - Validate
     inputs:
       provider: 'azurerm'
@@ -47,7 +47,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
-  - task: TerraformTaskV1@2
+  - task: TerraformTaskV1@1
     displayName: Terraform - Plan
     inputs:
       provider: 'azurerm'
@@ -58,7 +58,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
-  - task: TerraformTaskV1@2
+  - task: TerraformTaskV1@1
     displayName: Terraform - Apply
     inputs:
       provider: 'azurerm'
