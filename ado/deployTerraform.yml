@@ -39,6 +39,7 @@ steps:
     inputs:
       command: plan
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      commandOptions: '-var-file=environments/${{ parameters.environmentName }}.tfvars'
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
