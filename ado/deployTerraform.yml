@@ -44,6 +44,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
   - task: TerraformTaskV2@2
     displayName: Terraform - Apply
     inputs:
@@ -55,3 +56,4 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
