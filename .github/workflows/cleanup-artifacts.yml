@@ -1,0 +1,17 @@
+# This is a basic workflow that is manually triggered
+
+name: Cleanup workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete Package Versions
+      uses: actions/delete-package-versions@v1.0.3
+      with:
+        num-old-versions-to-delete: 1
