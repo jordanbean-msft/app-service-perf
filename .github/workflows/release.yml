@@ -62,9 +62,6 @@ jobs:
       TF_VAR_webAppTenantId: ${{ secrets.AZURE_AD_TENANT_ID }}
       TF_VAR_githubActionsObjectId: ${{ secrets.TF_VAR_githubActionsObjectId }}
       environment: dev
-    defaults:
-      run:
-        working-directory: terraform/.
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -77,21 +74,27 @@ jobs:
       - name: Terraform Format      
         id: fmt
         run: terraform fmt
+        working-directory: ./terraform
       - name: Terraform Init
         id: init
         run: terraform init
+        working-directory: ./terraform
       - name: Terraform Validate
         id: validate
         run: terraform validate
+        working-directory: ./terraform
       - name: Terraform Plan
         id: plan
         run: terraform plan
+        working-directory: ./terraform
       - name: Terraform Apply
         id: apply
         run: terraform apply -var-file=environments/${{ env.environment }}.tfvars
+        working-directory: ./terraform
       - name: 'Terraform Output'
         id: terraform_output
         run: terraform output
+        working-directory: ./terraform
       - name: Outputs
         id: output
         run: |
