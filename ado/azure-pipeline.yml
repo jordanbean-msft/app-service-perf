@@ -23,7 +23,7 @@ stages:
   - stage: Dev
     dependsOn: Build
     jobs:
-    - deployment: Deploy 
+    - deployment: Dev_Deploy
       pool:
         vmImage: ubuntu-latest
       environment: ${{ variables.devEnvironmentName }}
@@ -52,7 +52,7 @@ stages:
   - stage: Test
     dependsOn: Dev
     jobs:
-    - job: Deploy
+    - job: Test_Deploy
       pool:
         vmImage: ubuntu-latest
       environment: ${{ variables.testEnvironmentName }}
@@ -81,7 +81,7 @@ stages:
   - stage: Prod
     dependsOn: Test
     jobs:
-    - job: Deploy
+    - job: Prod_Deploy
       pool:
         vmImage: ubuntu-latest
       environment: ${{ variables.prodEnvironmentName }}
