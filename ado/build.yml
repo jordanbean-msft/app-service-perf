@@ -1,0 +1,27 @@
+parameters:
+ - name: artifactName
+ - name: configuration
+ - name: pathToWebAppProjectDirectory
+ - name: webAppProjectName
+
+steps:
+  - template: printEnv.yml
+  - task: DotNetCoreCLI@2
+    displayName: Restore NuGet packages
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+      includeNuGetOrg: true
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      arguments: --configuration ${{ parametes.configuration }} --no-restore
+      projects: |
+        ${{ parameters.pathToWebAppProjectDirectory }}/${{ webAppProjectName }}
+  - task: DotNetCoreCLI@2
+    displayName: Test
+    inputs:
+      command: test
+  - publish: $(System.DefaultWorkingDirectory)/${{ parameters.pathToWebAppProjectDirectory}}/bin/${{ parameters.configuration}}/net5.0
+    artifact: ${{ parameters.artifactName }}

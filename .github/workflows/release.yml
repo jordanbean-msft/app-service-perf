@@ -22,12 +22,6 @@ jobs:
         run: env | sort
       - name: Print directory tree
         run: tree
-      - name: Delete Package Versions
-        uses: smartsquaregmbh/delete-old-packages@v0.3.1
-        with:
-          keep: 5
-          names: |
-            artifact
       - name: Setup .Net Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1.7.2
         with:

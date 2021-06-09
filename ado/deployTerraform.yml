@@ -1,0 +1,70 @@
+parameters:
+  - name: environmentName
+  - name: pathToTerraformDirectory
+  - name: pathToTerraformVariableDirectory
+  - name: environmentServiceNameAzureRM
+  - name: backendServiceArm
+  - name: backendAzureRmResourceGroupName
+  - name: backendAzureRmStorageAccountName
+  - name: backendAzureRmContainerName
+  - name: backendAzureRmKey
+  
+steps:
+  - task: TerraformInstaller@0
+    displayName: Install Terraform
+  - task: TerraformTask@2
+    displayName: Terraform - Format
+    inputs:
+      command: fmt
+      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+      backendServiceArm: ${{ parameters.backendServiceArm }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+  - task: TerraformTask@2
+    displayName: Terraform - Initialize
+    inputs:
+      command: init
+      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+      backendServiceArm: ${{ parameters.backendServiceArm }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+  - task: TerraformTask@2
+    displayName: Terraform - Validate
+    inputs:
+      command: validate
+      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+      backendServiceArm: ${{ parameters.backendServiceArm }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+  - task: TerraformTask@2
+    displayName: Terraform - Plan
+    inputs:
+      command: plan
+      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+      backendServiceArm: ${{ parameters.backendServiceArm }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+  - task: TerraformTask@2
+    displayName: Terraform - Apply
+    inputs:
+      command: apply
+      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
+      commandOptions: '-var-file=environments/${{ parameters.environmentName }}.tfvars'
+      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
+      backendServiceArm: ${{ parameters.backendServiceArm }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}

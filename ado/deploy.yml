@@ -1,0 +1,30 @@
+parameters:
+  - name: appServiceName
+  - name: artifactName
+  - name: azureSubscriptionId
+  - name: backendAzureRmContainerName
+  - name: backendAzureRmKey
+  - name: backendAzureRmResourceGroupName
+  - name: backendAzureRmStorageAccountName
+  - name: environmentName
+  - name: pathToTerraformDirectory
+  - name: pathToTerraformVariableDirectory
+
+steps:
+  - template: printEnv.yml
+  - template: deployTerraform.yml
+    parameters:
+      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
+      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
+      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
+      backendServiceArm: ${{ parameters.azureSubscriptionId }}
+      environmentName: ${{ parameters.environmentName }}
+      environmentServiceNameAzureRM: ${{ parameters.azureSubscriptionId }}
+      pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
+      pathToTerraformVariableDirectory: ${{ parameters.pathToTerraformVariableDirectory }}
+  - template: deployWebApp.yml
+    parameters:
+      appServiceName: ${{ parameters.appServiceName }}
+      artifactName: ${{ parameters.artifactName }}
+      azureSubscriptionId: ${{ parameters.azureSubscriptionId }}
