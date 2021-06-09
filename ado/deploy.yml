@@ -11,6 +11,8 @@ parameters:
   - name: serviceConnectionName
 
 steps:
+  - checkout: self
+    persistCredentials: true
   - template: printEnv.yml
   - template: deployTerraform.yml
     parameters:
