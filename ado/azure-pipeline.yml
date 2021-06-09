@@ -23,81 +23,81 @@ stages:
   - stage: Dev
     dependsOn: Build
     jobs:
-      - deployment: Deploy 
-        pool:
-          vmImage: ubuntu-latest
-        environment: ${{ variables.devEnvironmentName }}
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - template: deploy.yml
-                parameters:
-                  appServiceName: ${{ variables.appServiceName }}
-                  artifactName: ${{ variables.artifactName }}
-                  azureSubscriptionId: ${{ variables.azureSubscriptionName }}
-                  backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                  backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                  backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                  backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-                  environmentName: ${{ variables.devEnvironmentName }}
-                  pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                  pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-              - task: ManualValidation@0
-                timeoutInMinutes: 1440 # task times out in 1 day
-                inputs:
-                  instructions: 'Please validate the deployment and resume'
-                  onTimeout: 'resume'
+    - deployment: Deploy 
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.devEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy.yml
+              parameters:
+                appServiceName: ${{ variables.appServiceName }}
+                artifactName: ${{ variables.artifactName }}
+                azureSubscriptionId: ${{ variables.azureSubscriptionName }}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+                environmentName: ${{ variables.devEnvironmentName }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+            - task: ManualValidation@0
+              timeoutInMinutes: 1440 # task times out in 1 day
+              inputs:
+                instructions: 'Please validate the deployment and resume'
+                onTimeout: 'resume'
 
   - stage: Test
     dependsOn: Dev
     jobs:
-      - job: Deploy
-        pool:
-          vmImage: ubuntu-latest
-        environment: ${{ variables.testEnvironmentName }}
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - template: deploy.yml
-                parameters:
-                  appServiceName: ${{ variables.appServiceName }}
-                  artifactName: ${{ variables.artifactName }}
-                  azureSubscriptionId: ${{ variables.azureSubscriptionName }}
-                  backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                  backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                  backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                  backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-                  environmentName: ${{ variables.testEnvironmentName }}
-                  pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                  pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-              - task: ManualValidation@0
-                timeoutInMinutes: 1440 # task times out in 1 day
-                inputs:
-                  instructions: 'Please validate the deployment and resume'
-                  onTimeout: 'resume'
-                  
+    - job: Deploy
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.testEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy.yml
+              parameters:
+                appServiceName: ${{ variables.appServiceName }}
+                artifactName: ${{ variables.artifactName }}
+                azureSubscriptionId: ${{ variables.azureSubscriptionName }}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+                environmentName: ${{ variables.testEnvironmentName }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+            - task: ManualValidation@0
+              timeoutInMinutes: 1440 # task times out in 1 day
+              inputs:
+                instructions: 'Please validate the deployment and resume'
+                onTimeout: 'resume'
+
   - stage: Prod
     dependsOn: Test
     jobs:
-      - job: Deploy
-        pool:
-          vmImage: ubuntu-latest
-        environment: ${{ variables.prodEnvironmentName }}
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - template: deploy.yml
-                parameters:
-                  appServiceName: ${{ variables.appServiceName }}
-                  artifactName: ${{ variables.artifactName }}
-                  azureSubscriptionId: ${{ variables.azureSubscriptionName }}
-                  backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                  backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                  backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                  backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-                  environmentName: ${{ variables.prodEnvironmentName }}
-                  pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                  pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+    - job: Deploy
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.prodEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy.yml
+              parameters:
+                appServiceName: ${{ variables.appServiceName }}
+                artifactName: ${{ variables.artifactName }}
+                azureSubscriptionId: ${{ variables.azureSubscriptionName }}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+                environmentName: ${{ variables.prodEnvironmentName }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}

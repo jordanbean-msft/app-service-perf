@@ -8,3 +8,4 @@ pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
 pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
 pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
 webAppProjectName: AppServicePerf
+System.Debug: true
