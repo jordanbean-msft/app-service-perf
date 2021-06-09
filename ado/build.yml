@@ -16,9 +16,9 @@ steps:
     displayName: Build
     inputs:
       command: build
-      arguments: --configuration ${{ parametes.configuration }} --no-restore
+      arguments: --configuration ${{ parameters.configuration }} --no-restore
       projects: |
-        ${{ parameters.pathToWebAppProjectDirectory }}/${{ webAppProjectName }}
+        ${{ parameters.pathToWebAppProjectDirectory }}/${{ parameters.webAppProjectName }}
   - task: DotNetCoreCLI@2
     displayName: Test
     inputs:
