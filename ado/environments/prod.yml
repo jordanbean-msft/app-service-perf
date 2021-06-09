@@ -1,1 +1,2 @@
-prodEnvironmentName: prod
+variables:
+  prodEnvironmentName: prod

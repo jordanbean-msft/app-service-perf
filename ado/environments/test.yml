@@ -1,1 +1,2 @@
-testEnvironmentName: test
+variables:
+  testEnvironmentName: test

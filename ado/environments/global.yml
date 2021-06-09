@@ -1,11 +1,12 @@
-artifactName: WebApp
-backendAzureRmContainerName: tfstate
-backendAzureRmKey: terraform.tfstate
-backendAzureRmResourceGroupName: rg-terraform
-backendAzureRmStorageAccountName: terraformaiarjb
-configuration: Debug
-pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
-pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
-pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
-webAppProjectName: AppServicePerf
-System.Debug: true
+variables:
+  artifactName: WebApp
+  backendAzureRmContainerName: tfstate
+  backendAzureRmKey: terraform.tfstate
+  backendAzureRmResourceGroupName: rg-terraform
+  backendAzureRmStorageAccountName: terraformaiarjb
+  configuration: Debug
+  pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
+  pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
+  pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
+  webAppProjectName: AppServicePerf
+  System.Debug: true
