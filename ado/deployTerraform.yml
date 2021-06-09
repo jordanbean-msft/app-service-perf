@@ -12,6 +12,8 @@ parameters:
 steps:
   - task: TerraformInstaller@0
     displayName: Install Terraform
+    inputs:
+      version: 1.0.0
   - task: TerraformTaskV2@2
     displayName: Terraform - Format
     inputs:
