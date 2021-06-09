@@ -43,11 +43,16 @@ stages:
                 environmentName: ${{ variables.devEnvironmentName }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
                 pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-    - task: ManualValidation@0
-      timeoutInMinutes: 1440 # task times out in 1 day
-      inputs:
-        instructions: 'Please validate the deployment and resume'
-        onTimeout: 'resume'
+    - job: waitForValidation
+      displayName: Wait for validation
+      pool: server
+      timeoutInMinutes: 4320 # job times out in 3 days
+      steps:
+      - task: ManualValidation@0
+        timeoutInMinutes: 1440 # task times out in 1 day
+        inputs:
+          instructions: 'Please validate the deployment and resume'
+          onTimeout: 'resume'
 
   # - stage: Test
   #   dependsOn: Dev
