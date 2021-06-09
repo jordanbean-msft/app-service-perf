@@ -11,8 +11,7 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-    - name: Remove package versions
-      id: remove-package-versions
-      uses: epitomeglobal/remove-package-versions@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 day'
