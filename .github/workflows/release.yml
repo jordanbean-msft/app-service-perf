@@ -107,7 +107,6 @@ jobs:
           tf_actions_version: 0.14.8 
           tf_actions_subcommand: output
           tf_actions_working_dir: terraform/.
-        working-directory: ./terraform
       - name: Outputs
         id: output
         run: |
