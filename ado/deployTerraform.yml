@@ -15,8 +15,7 @@ steps:
   - task: TerraformTaskV2@2
     displayName: Terraform - Format
     inputs:
-      provider: azurerm
-      command: fmt
+      command: 'fmt'
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
@@ -26,8 +25,7 @@ steps:
   - task: TerraformTaskV2@2
     displayName: Terraform - Initialize
     inputs:
-      provider: azurerm
-      command: init
+      command: 'init'
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
@@ -37,8 +35,7 @@ steps:
   - task: TerraformTaskV2@2
     displayName: Terraform - Validate
     inputs:
-      provider: azurerm
-      command: validate
+      command: 'validate'
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
@@ -48,8 +45,7 @@ steps:
   - task: TerraformTaskV2@2
     displayName: Terraform - Plan
     inputs:
-      provider: azurerm
-      command: plan
+      command: 'plan'
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
@@ -59,8 +55,7 @@ steps:
   - task: TerraformTaskV2@2
     displayName: Terraform - Apply
     inputs:
-      provider: azurerm
-      command: apply
+      command: 'apply'
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       commandOptions: '-var-file=environments/${{ parameters.environmentName }}.tfvars'
       backendServiceArm: ${{ parameters.backendServiceArm }}
