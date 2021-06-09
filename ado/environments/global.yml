@@ -8,5 +8,6 @@ variables:
   pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
   pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
   pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
+  serviceConnectionName: jordanbean-aia
   webAppProjectName: AppServicePerf
   System.Debug: true

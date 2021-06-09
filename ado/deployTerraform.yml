@@ -18,7 +18,6 @@ steps:
       provider: azurerm
       command: fmt
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
@@ -30,7 +29,6 @@ steps:
       provider: azurerm
       command: init
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
@@ -42,7 +40,6 @@ steps:
       provider: azurerm
       command: validate
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
@@ -54,7 +51,6 @@ steps:
       provider: azurerm
       command: plan
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
@@ -67,7 +63,6 @@ steps:
       command: apply
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
       commandOptions: '-var-file=environments/${{ parameters.environmentName }}.tfvars'
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}

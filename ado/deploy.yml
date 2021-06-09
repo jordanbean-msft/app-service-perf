@@ -1,7 +1,6 @@
 parameters:
   - name: appServiceName
   - name: artifactName
-  - name: azureSubscriptionId
   - name: backendAzureRmContainerName
   - name: backendAzureRmKey
   - name: backendAzureRmResourceGroupName
@@ -9,6 +8,7 @@ parameters:
   - name: environmentName
   - name: pathToTerraformDirectory
   - name: pathToTerraformVariableDirectory
+  - name: serviceConnectionName
 
 steps:
   - template: printEnv.yml
@@ -18,7 +18,7 @@ steps:
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
-      backendServiceArm: ${{ parameters.azureSubscriptionId }}
+      backendServiceArm: ${{ parameters.serviceConnectionName }}
       environmentName: ${{ parameters.environmentName }}
       environmentServiceNameAzureRM: ${{ parameters.azureSubscriptionId }}
       pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
