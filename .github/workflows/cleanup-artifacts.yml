@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Delete Package Versions
-      uses: actions/delete-package-versions@v1.0.3
+      uses: smartsquaregmbh/delete-old-packages@v0.3.1
       with:
-        package-name: 'artifact'
-        num-old-versions-to-delete: 10
+        keep: 5
+        names: |
+          artifact
