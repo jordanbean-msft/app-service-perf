@@ -43,11 +43,6 @@ steps:
       ARM_CLIENT_SECRET: $(ArmClientSecret)
   - bash: |
       terraform apply \
-      -var-file=${{ parameters.pathToTerraformEnvironmentVariablesDirectory }}/${{ parameters.globalTerraformVariableFilename }}.tfvars \
-      -var-file=${{ parameters.pathToTerraformEnvironmentVariablesDirectory }}/${{ parameters.environmentName }}.tfvars \
-      -var "SQLSERVERADMINUSERNAME=$(TF_VAR_SQLSERVERADMINUSERNAME)" \
-      -var "SQLSERVERADMINPASSWORD=$(TF_VAR_SQLSERVERADMINPASSWORD)" \
-      -var "WEBAPPCLIENTSECRET=$(TF_VAR_WEBAPPCLIENTSECRET)" \
       -input=false \
       tfplan
     displayName: Terraform - Apply
