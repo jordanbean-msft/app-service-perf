@@ -14,10 +14,8 @@ steps:
     displayName: Get Pipeline Service Principal Object Id
     inputs:
       azureSubscription: ${{ parameters.backendServiceArm }}
-      scriptType: inlineScript
-      inline: |
-        $context = Get-AzContext
-        Write-Host "##vso[task.setvariable variable=TF_VAR_pipelineObjectId]$($context.Account.Id)"
+      scriptType: FilePath
+      scriptPath: getPipelineObjectId.ps1
   - task: TerraformInstaller@0
     displayName: Install Terraform
     inputs:
