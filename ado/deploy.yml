@@ -15,7 +15,7 @@ steps:
     parameters:
       environmentName: ${{ parameters.environmentName }}
       globalTerraformVariableFilename: ${{ parameters.globalTerraformVariableFilename }}
-      pathToTerraformDirectory: ${{ parameters.pathToTerraformWebAppDirectory }}
+      pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
       pathToTerraformEnvironmentVariablesDirectory: ${{ parameters.pathToTerraformEnvironmentVariablesDirectory }}
   - template: deployWebApp.yml
     parameters:
