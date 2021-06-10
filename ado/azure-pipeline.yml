@@ -54,60 +54,60 @@ stages:
         inputs:
           instructions: 'Please validate the deployment and resume'
           onTimeout: 'resume'
-
-  # - stage: Test
-  #   dependsOn: Dev
-  #   jobs:
-  #   - job: Test_Deploy
-  #     pool:
-  #       vmImage: ubuntu-latest
-  #     environment: ${{ variables.testEnvironmentName }}
-  #     strategy:
-  #       runOnce:
-  #         deploy:
-  #           steps:
-  #           - template: deploy.yml
-  #             parameters:
-  #               artifactName: ${{ variables.artifactName }}
-  #               serviceConnectionName: ${{ variables.serviceConnectionName }}
-  #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-  #               backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-  #               backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-  #               backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-  #               environmentName: ${{ variables.testEnvironmentName }}
-  #               pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-  #               pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-    # - job: waitForValidation
-    #   displayName: Wait for validation
-    #   dependsOn: Test_Deploy
-    #   pool: server
-    #   timeoutInMinutes: 4320 # job times out in 3 days
-    #   steps:
-    #   - task: ManualValidation@0
-    #     timeoutInMinutes: 1440 # task times out in 1 day
-    #     inputs:
-    #       instructions: 'Please validate the deployment and resume'
-    #       onTimeout: 'resume'
-
-  # - stage: Prod
-  #   dependsOn: Test
-  #   jobs:
-  #   - job: Prod_Deploy
-  #     pool:
-  #       vmImage: ubuntu-latest
-  #     environment: ${{ variables.prodEnvironmentName }}
-  #     strategy:
-  #       runOnce:
-  #         deploy:
-  #           steps:
-  #           - template: deploy.yml
-  #             parameters:
-  #               artifactName: ${{ variables.artifactName }}
-  #               serviceConnectionName: ${{ variables.serviceConnectionName }}
-  #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-  #               backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-  #               backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-  #               backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-  #               environmentName: ${{ variables.prodEnvironmentName }}
-  #               pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-  #               pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+  - stage: Test
+    dependsOn: Dev
+    jobs:
+    - deployment: Test_Deploy
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.testEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy.yml
+              parameters:
+                artifactName: ${{ variables.artifactName }}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+                environmentName: ${{ variables.testEnvironmentName }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+                serviceConnectionName: ${{ variables.serviceConnectionName }}
+                webAppProjectName: ${{ variables.webAppProjectName }}
+    - job: waitForValidation
+      displayName: Wait for validation
+      dependsOn: Test_Deploy
+      pool: server
+      timeoutInMinutes: 4320 # job times out in 3 days
+      steps:
+      - task: ManualValidation@0
+        timeoutInMinutes: 1440 # task times out in 1 day
+        inputs:
+          instructions: 'Please validate the deployment and resume'
+          onTimeout: 'resume'
+  - stage: Prod
+    dependsOn: Test
+    jobs:
+    - deployment: Prod_Deploy
+      pool:
+        vmImage: ubuntu-latest
+      environment: ${{ variables.prodEnvironmentName }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - template: deploy.yml
+              parameters:
+                artifactName: ${{ variables.artifactName }}
+                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+                environmentName: ${{ variables.prodEnvironmentName }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+                serviceConnectionName: ${{ variables.serviceConnectionName }}
+                webAppProjectName: ${{ variables.webAppProjectName }}
