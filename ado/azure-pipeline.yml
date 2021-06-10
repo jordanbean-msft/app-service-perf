@@ -46,6 +46,7 @@ stages:
     - job: waitForValidation
       displayName: Wait for validation
       dependsOn: Dev_Deploy
+      condition: false
       pool: server
       timeoutInMinutes: 4320 # job times out in 3 days
       steps:
@@ -80,6 +81,7 @@ stages:
     - job: waitForValidation
       displayName: Wait for validation
       dependsOn: Test_Deploy
+      condition: false
       pool: server
       timeoutInMinutes: 4320 # job times out in 3 days
       steps:
