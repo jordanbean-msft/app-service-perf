@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storageAccount" {
-  name                     = lower("st${var.appName}${var.region}${var.environment}")
+  name                     = lower("st${var.APPNAME}${var.REGION}${var.ENVIRONMENT}")
   resource_group_name      = azurerm_resource_group.resourceGroup.name
   location                 = azurerm_resource_group.resourceGroup.location
   account_tier             = "Standard"

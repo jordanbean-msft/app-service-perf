@@ -1,55 +1,55 @@
-variable "location" {
+variable "LOCATION" {
   type = string
 }
 
-variable "region" {
+variable "REGION" {
   type = string
 }
 
-variable "appName" {
+variable "APPNAME" {
   type = string
 }
 
-variable "environment" {
+variable "ENVIRONMENT" {
   type = string
 }
 
-variable "sqlServerAdminUsername" {
+variable "SQLSERVERADMINUSERNAME" {
   type      = string
   sensitive = true
 }
 
-variable "sqlServerAdminPassword" {
+variable "SQLSERVERADMINPASSWORD" {
   type      = string
   sensitive = true
 }
 
-variable "azureAdAdminObjectId" {
+variable "AZUREADADMINOBJECTID" {
   type = string
 }
 
-variable "webAppClientId" {
+variable "WEBAPPCLIENTID" {
   type = string
 }
 
-variable "webAppDomain" {
+variable "WEBAPPDOMAIN" {
   type = string
 }
 
-variable "webAppTenantId" {
+variable "WEBAPPTENANTID" {
   type = string
 }
 
-variable "webAppClientSecret" {
+variable "WEBAPPCLIENTSECRET" {
   type      = string
   sensitive = true
 }
 
-variable "pipelineObjectId" {
+variable "PIPELINEOBJECTID" {
   type = string
 }
 
 locals {
-  longName  = "${var.appName}-${var.region}-${var.environment}"
-  shortName = "${var.appName}${var.region}${var.environment}"
+  longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
+  shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"
 }

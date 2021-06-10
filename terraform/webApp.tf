@@ -21,9 +21,9 @@ resource "azurerm_app_service" "appService" {
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY            = azurerm_application_insights.appInsights.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING     = azurerm_application_insights.appInsights.connection_string
-    "AzureAD:Domain"                          = var.webAppDomain
-    "AzureAD:ClientId"                        = var.webAppClientId
-    "AzureAD:TenantId"                        = var.webAppTenantId
+    "AzureAD:Domain"                          = var.WEBAPPDOMAIN
+    "AzureAD:ClientId"                        = var.WEBAPPCLIENTID
+    "AzureAD:TenantId"                        = var.WEBAPPTENANTID
     "AzureAD:ClientSecret"                    = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.webAppClientSecret.name})"
     "Storage:ServiceUri"                      = azurerm_storage_account.storageAccount.primary_blob_endpoint
     "ConnectionStrings:AppServicePerfContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"

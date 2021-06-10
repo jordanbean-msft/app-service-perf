@@ -3,12 +3,12 @@ resource "azurerm_mssql_server" "sqlServer" {
   resource_group_name          = azurerm_resource_group.resourceGroup.name
   location                     = azurerm_resource_group.resourceGroup.location
   version                      = "12.0"
-  administrator_login          = var.sqlServerAdminUsername
-  administrator_login_password = var.sqlServerAdminPassword
+  administrator_login          = var.SQLSERVERADMINUSERNAME
+  administrator_login_password = var.SQLSERVERADMINPASSWORD
   minimum_tls_version          = "1.2"
   azuread_administrator {
     login_username = "AzureAD admin"
-    object_id      = var.azureAdAdminObjectId
+    object_id      = var.AZUREADADMINOBJECTID
   }
 }
 
@@ -71,11 +71,11 @@ resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
 resource "azurerm_key_vault_secret" "sqlServerAdminUsername" {
   name         = "sqlServerAdminUsername"
   key_vault_id = azurerm_key_vault.keyVault.id
-  value        = var.sqlServerAdminUsername
+  value        = var.SQLSERVERADMINUSERNAME
 }
 
 resource "azurerm_key_vault_secret" "sqlServerAdminPassword" {
   name         = "sqlServerAdminPassword"
   key_vault_id = azurerm_key_vault.keyVault.id
-  value        = var.sqlServerAdminPassword
+  value        = var.SQLSERVERADMINPASSWORD
 }

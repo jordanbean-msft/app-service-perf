@@ -5,13 +5,13 @@ resource "azurerm_key_vault" "keyVault" {
   enable_rbac_authorization       = true
   sku_name                        = "standard"
   enabled_for_template_deployment = true
-  tenant_id                       = var.webAppTenantId
+  tenant_id                       = var.WEBAPPTENANTID
 }
 
 resource "azurerm_role_assignment" "pipelineKeyVaultAdministratorRole" {
   scope                = azurerm_key_vault.keyVault.id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = var.pipelineObjectId
+  principal_id         = var.PIPELINEOBJECTID
 }
 
 resource "time_sleep" "waitForRbacPropagation" {
@@ -24,7 +24,7 @@ resource "time_sleep" "waitForRbacPropagation" {
 resource "azurerm_key_vault_secret" "webAppClientSecret" {
   name         = "webAppClientSecret"
   key_vault_id = azurerm_key_vault.keyVault.id
-  value        = var.webAppClientSecret
+  value        = var.WEBAPPCLIENTSECRET
   depends_on = [
     time_sleep.waitForRbacPropagation
   ]

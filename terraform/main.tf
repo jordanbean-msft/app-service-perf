@@ -21,5 +21,5 @@ data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "resourceGroup" {
   name     = "rg-${local.longName}"
-  location = var.location
+  location = var.LOCATION
 }
