@@ -36,6 +36,8 @@ stages:
       pool:
         vmImage: ubuntu-latest
       environment: ${{ variables.devEnvironmentName }}
+      variables:
+        group: ${{ variables.webAppSolutionName }}-${{ variables.devEnvironmentName }}
       strategy:
         runOnce:
           deploy:
@@ -43,14 +45,10 @@ stages:
             - template: deploy.yml
               parameters:
                 artifactName: ${{ variables.artifactName }}
-                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
                 environmentName: ${{ variables.devEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
-                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
+                pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
+                pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
                 webAppProjectName: ${{ variables.webAppProjectName }}
     - job: waitForValidation
@@ -64,63 +62,69 @@ stages:
         inputs:
           instructions: 'Please validate the deployment and resume'
           onTimeout: reject
-  - stage: Test
-    dependsOn: Dev
-    jobs:
-    - deployment: Test_Deploy
-      pool:
-        vmImage: ubuntu-latest
-      environment: ${{ variables.testEnvironmentName }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: deploy.yml
-              parameters:
-                artifactName: ${{ variables.artifactName }}
-                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-                environmentName: ${{ variables.testEnvironmentName }}
-                globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
-                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-                serviceConnectionName: ${{ variables.serviceConnectionName }}
-                webAppProjectName: ${{ variables.webAppProjectName }}
-    - job: waitForValidation
-      displayName: Wait for validation
-      dependsOn: Test_Deploy
-      condition: false
-      pool: server
-      timeoutInMinutes: 4320 # job times out in 3 days
-      steps:
-      - task: ManualValidation@0
-        timeoutInMinutes: 1440 # task times out in 1 day
-        inputs:
-          instructions: 'Please validate the deployment and resume'
-          onTimeout: reject
-  - stage: Prod
-    dependsOn: Test
-    jobs:
-    - deployment: Prod_Deploy
-      pool:
-        vmImage: ubuntu-latest
-      environment: ${{ variables.prodEnvironmentName }}
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - template: deploy.yml
-              parameters:
-                artifactName: ${{ variables.artifactName }}
-                backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
-                backendAzureRmKey: ${{ variables.backendAzureRmKey }}
-                backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
-                backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
-                environmentName: ${{ variables.prodEnvironmentName }}
-                globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
-                pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
-                pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
-                serviceConnectionName: ${{ variables.serviceConnectionName }}
-                webAppProjectName: ${{ variables.webAppProjectName }}
+  # - stage: Test
+  #   dependsOn: Dev
+  #   jobs:
+  #   - deployment: Test_Deploy
+  #     pool:
+  #       vmImage: ubuntu-latest
+  #     environment: ${{ variables.testEnvironmentName }}
+  #     strategy:
+  #       runOnce:
+  #         deploy:
+  #           steps:
+  #           - template: deploy.yml
+  #             parameters:
+  #               artifactName: ${{ variables.artifactName }}
+  #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+  #               backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+  #               backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+  #               backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+  #               environmentName: ${{ variables.testEnvironmentName }}
+  #               globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+  #               pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+  #               pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
+  #               serviceConnectionName: ${{ variables.serviceConnectionName }}
+  #               webAppProjectName: ${{ variables.webAppProjectName }}
+  #               pathToTerraformInitDirectory: ${{ variables.pathToTerraformInitDirectory }}
+  #               pathToTerraformPreDirectory: ${{ variables.pathToTerraformPreDirectory }}
+  #               pathToTerraformWebAppDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
+  #   - job: waitForValidation
+  #     displayName: Wait for validation
+  #     dependsOn: Test_Deploy
+  #     condition: false
+  #     pool: server
+  #     timeoutInMinutes: 4320 # job times out in 3 days
+  #     steps:
+  #     - task: ManualValidation@0
+  #       timeoutInMinutes: 1440 # task times out in 1 day
+  #       inputs:
+  #         instructions: 'Please validate the deployment and resume'
+  #         onTimeout: reject
+  # - stage: Prod
+  #   dependsOn: Test
+  #   jobs:
+  #   - deployment: Prod_Deploy
+  #     pool:
+  #       vmImage: ubuntu-latest
+  #     environment: ${{ variables.prodEnvironmentName }}
+  #     strategy:
+  #       runOnce:
+  #         deploy:
+  #           steps:
+  #           - template: deploy.yml
+  #             parameters:
+  #               artifactName: ${{ variables.artifactName }}
+  #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
+  #               backendAzureRmKey: ${{ variables.backendAzureRmKey }}
+  #               backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
+  #               backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
+  #               environmentName: ${{ variables.prodEnvironmentName }}
+  #               globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+  #               pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
+  #               pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
+  #               serviceConnectionName: ${{ variables.serviceConnectionName }}
+  #               webAppProjectName: ${{ variables.webAppProjectName }}
+  #               pathToTerraformInitDirectory: ${{ variables.pathToTerraformInitDirectory }}
+  #               pathToTerraformPreDirectory: ${{ variables.pathToTerraformPreDirectory }}
+  #               pathToTerraformWebAppDirectory: ${{ variables.pathToTerraformWebAppDirectory }}

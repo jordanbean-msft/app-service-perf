@@ -8,7 +8,6 @@ parameters:
   - name: webAppSolutionName
 
 variables:
-  pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}
   pathToTerraformEnvironmentVariablesDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformEnvironmentVariablesDirectoryName }}
   pathToTerraformInitDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformInitDirectoryName }}
   pathToTerraformPreDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformPreDirectoryName }}
