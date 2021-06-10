@@ -20,10 +20,9 @@ steps:
       projects: |
         ${{ parameters.pathToWebAppProjectDirectory }}/${{ parameters.webAppProjectName }}.csproj
   - task: DotNetCoreCLI@2
-    condition: false
     displayName: Publish
     inputs:
       command: publish
-      arguments: -c ${{ parameters.configuration }} -o $(Build.ArtifactStagingDirectory) -p:PublishSingleFile=false
-  - publish: ${{ parameters.pathToWebAppProjectDirectory }}/bin/${{ parameters.configuration }}/net5.0
+      arguments: -c ${{ parameters.configuration }}
+  - publish: ${{ parameters.pathToWebAppProjectDirectory }}/bin/${{ parameters.configuration }}/net5.0/publish
     artifact: ${{ parameters.artifactName }}
