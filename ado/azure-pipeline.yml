@@ -33,7 +33,6 @@ stages:
             steps:
             - template: deploy.yml
               parameters:
-                appServiceName: ${{ variables.appServiceName }}
                 artifactName: ${{ variables.artifactName }}
                 backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
                 backendAzureRmKey: ${{ variables.backendAzureRmKey }}
@@ -68,7 +67,6 @@ stages:
   #           steps:
   #           - template: deploy.yml
   #             parameters:
-  #               appServiceName: ${{ variables.appServiceName }}
   #               artifactName: ${{ variables.artifactName }}
   #               serviceConnectionName: ${{ variables.serviceConnectionName }}
   #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
@@ -103,7 +101,6 @@ stages:
   #           steps:
   #           - template: deploy.yml
   #             parameters:
-  #               appServiceName: ${{ variables.appServiceName }}
   #               artifactName: ${{ variables.artifactName }}
   #               serviceConnectionName: ${{ variables.serviceConnectionName }}
   #               backendAzureRmContainerName: ${{ variables.backendAzureRmContainerName}}
