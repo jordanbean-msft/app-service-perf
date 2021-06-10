@@ -27,5 +27,5 @@ steps:
   - template: deployWebApp.yml
     parameters:
       appServiceName: $(terraformOutput.appServiceName) 
-      artifactName: ${{ parameters.artifactName }}
+      artifactName: $(Pipeline.Workspace)/${{ parameters.artifactName }}
       serviceConnectionName: ${{ parameters.serviceConnectionName }}
