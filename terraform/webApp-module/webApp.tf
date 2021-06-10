@@ -1,17 +1,27 @@
 resource "azurerm_app_service_plan" "appServicePlan" {
-  name                = "appsp-${local.longName}"
-  resource_group_name = azurerm_resource_group.resourceGroup.name
-  location            = azurerm_resource_group.resourceGroup.location
+  name                = "appsp-${var.longName}"
+  resource_group_name = var.resourceGroup.name
+  location            = var.resourceGroup.location
   sku {
     tier = "Free"
     size = "F1"
   }
 }
 
+data "azurerm_key_vault_secret" "cacheCredentialSecret" {
+  name         = "cacheCredentials"
+  key_vault_id = var.keyVault.id
+}
+
+data "azurerm_key_vault_secret" "webAppClientSecret" {
+  name         = "webAppClientSecret"
+  key_vault_id = var.keyVault.id
+}
+
 resource "azurerm_app_service" "appService" {
-  name                = "app-${local.longName}"
-  resource_group_name = azurerm_resource_group.resourceGroup.name
-  location            = azurerm_resource_group.resourceGroup.location
+  name                = "app-${var.longName}"
+  resource_group_name = var.resourceGroup.name
+  location            = var.resourceGroup.location
   app_service_plan_id = azurerm_app_service_plan.appServicePlan.id
   https_only          = true
   enabled             = true
@@ -21,13 +31,13 @@ resource "azurerm_app_service" "appService" {
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY            = azurerm_application_insights.appInsights.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING     = azurerm_application_insights.appInsights.connection_string
-    "AzureAD:Domain"                          = var.WEBAPPDOMAIN
-    "AzureAD:ClientId"                        = var.WEBAPPCLIENTID
-    "AzureAD:TenantId"                        = var.WEBAPPTENANTID
-    "AzureAD:ClientSecret"                    = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.webAppClientSecret.name})"
+    "AzureAD:Domain"                          = var.webAppDomain
+    "AzureAD:ClientId"                        = var.webAppClientId
+    "AzureAD:TenantId"                        = var.tenantId
+    "AzureAD:ClientSecret"                    = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.webAppClientSecret.name})"
     "Storage:ServiceUri"                      = azurerm_storage_account.storageAccount.primary_blob_endpoint
     "ConnectionStrings:AppServicePerfContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
-    "ConnectionStrings:RedisCache"            = "@Microsoft.KeyVault(VaultName=${azurerm_key_vault.keyVault.name};SecretName=${azurerm_key_vault_secret.cacheConnectionSecret.name})"
+    "ConnectionStrings:RedisCache"            = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.cacheCredentialSecret.name})"
     WEBSITE_RUN_FROM_PACKAGE                  = 1
   }
 }
@@ -47,7 +57,7 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
 }
 
 resource "azurerm_role_assignment" "managedIdentityWebAppKeyVaultSecretsUserRoleAssignment" {
-  scope                = azurerm_key_vault.keyVault.id
+  scope                = var.keyVault.id
   role_definition_name = "Key Vault Secrets User"
   principal_id         = azurerm_app_service.appService.identity[0].principal_id
 }

@@ -1,7 +1,7 @@
 resource "azurerm_redis_cache" "redisCache" {
-  name                = "redis-${local.longName}"
-  resource_group_name = azurerm_resource_group.resourceGroup.name
-  location            = azurerm_resource_group.resourceGroup.location
+  name                = "redis-${var.longName}"
+  resource_group_name = var.resourceGroup.name
+  location            = var.resourceGroup.location
   capacity            = 1
   family              = "C"
   sku_name            = "Basic"
@@ -9,7 +9,7 @@ resource "azurerm_redis_cache" "redisCache" {
 }
 
 resource "azurerm_key_vault_secret" "cacheConnectionSecret" {
-  name         = "CacheConnection"
-  key_vault_id = azurerm_key_vault.keyVault.id
+  name         = "cacheConnection"
+  key_vault_id = var.keyVault.id
   value        = azurerm_redis_cache.redisCache.primary_connection_string
 }

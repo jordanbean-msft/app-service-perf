@@ -49,6 +49,10 @@ variable "PIPELINEOBJECTID" {
   type = string
 }
 
+variable "STORAGEACCOUNTCONTAINERIMAGESNAME" {
+  type = string
+}
+
 locals {
   longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
   shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"

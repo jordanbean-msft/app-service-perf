@@ -1,7 +1,7 @@
 resource "azurerm_storage_account" "storageAccount" {
-  name                     = lower("st${var.APPNAME}${var.REGION}${var.ENVIRONMENT}")
-  resource_group_name      = azurerm_resource_group.resourceGroup.name
-  location                 = azurerm_resource_group.resourceGroup.location
+  name                     = lower("st${var.appName}${var.region}${var.environment}")
+  resource_group_name      = var.resourceGroup.name
+  location                 = var.resourceGroup.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   allow_blob_public_access = false
@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "storageAccount" {
 }
 
 resource "azurerm_storage_container" "storageAccountContainer" {
-  name                  = "images"
+  name                  = var.storageAccountContainerImagesName
   storage_account_name  = azurerm_storage_account.storageAccount.name
   container_access_type = "private"
 }
