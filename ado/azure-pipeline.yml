@@ -42,6 +42,7 @@ stages:
                 pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
                 pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
+                webAppProjectName: ${{ variables.webAppProjectName }}
     - job: waitForValidation
       displayName: Wait for validation
       dependsOn: Dev_Deploy

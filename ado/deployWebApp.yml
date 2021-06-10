@@ -10,3 +10,5 @@ steps:
       azureSubscription: ${{ parameters.serviceConnectionName }}
       appName: ${{ parameters.appServiceName }}
       package: ${{ parameters.artifactName }}
+      enableCustomDeployment: true
+      deploymentMethod: runFromPackage

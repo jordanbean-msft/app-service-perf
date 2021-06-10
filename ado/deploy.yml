@@ -8,6 +8,7 @@ parameters:
   - name: pathToTerraformDirectory
   - name: pathToTerraformVariableDirectory
   - name: serviceConnectionName
+  - name: webAppProjectName
 
 steps:
   - checkout: self
@@ -27,5 +28,5 @@ steps:
   - template: deployWebApp.yml
     parameters:
       appServiceName: $(terraformOutput.appServiceName) 
-      artifactName: $(Pipeline.Workspace)/${{ parameters.artifactName }}
+      artifactName: $(Pipeline.Workspace)/${{ parameters.artifactName }}/${{ parameters.webAppProjectName }}.zip
       serviceConnectionName: ${{ parameters.serviceConnectionName }}
