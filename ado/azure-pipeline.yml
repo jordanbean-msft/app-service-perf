@@ -37,10 +37,12 @@ stages:
         vmImage: ubuntu-latest
       environment: ${{ variables.devEnvironmentName }}
       variables:
-        ARM_SUBSCRIPTION_ID: ${{ variables.subscriptionId }}
-        ARM_TENANT_ID: ${{ variables.tenantId }}
-        group: ${{ variables.webAppSolutionName }}-${{ variables.devEnvironmentName }}
-        group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.devEnvironmentName }}
+        - name: ARM_SUBSCRIPTION_ID
+          value: ${{ variables.subscriptionId }}
+        - name: ARM_TENANT_ID
+          value: ${{ variables.tenantId }}
+        - group: ${{ variables.webAppSolutionName }}-${{ variables.devEnvironmentName }}
+        - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.devEnvironmentName }}
       strategy:
         runOnce:
           deploy:
