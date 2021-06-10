@@ -38,9 +38,9 @@ resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   metric {
     category = "AllMetrics"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }

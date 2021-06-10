@@ -32,113 +32,113 @@ resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "DevOpsOperationsAudit"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "SQLSecurityAuditEvents"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "SQLInsights"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "AutomaticTuning"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "QueryStoreRuntimeStatistics"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "QueryStoreWaitStatistics"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "Errors"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "DatabaseWaitStatistics"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "Timeouts"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "Blocks"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   log {
     category = "Deadlocks"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   metric {
     category = "Basic"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   metric {
     category = "InstanceAndAppAdvanced"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
   metric {
     category = "WorkloadManagement"
-    enabled = true
+    enabled  = true
     retention_policy {
-      days = 0
+      days    = 0
       enabled = true
     }
   }
