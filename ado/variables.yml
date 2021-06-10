@@ -1,0 +1,16 @@
+parameters:
+  - name: terraformDirectoryName
+  - name: terraformEnvironmentVariablesDirectoryName
+  - name: terraformInitDirectoryName
+  - name: terraformPreDirectoryName
+  - name: terraformWebAppDirectoryName
+  - name: webAppProjectName
+  - name: webAppSolutionName
+
+variables:
+  pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}
+  pathToTerraformEnvironmentVariablesDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformEnvironmentVariablesDirectoryName }}
+  pathToTerraformInitDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformInitDirectoryName }}
+  pathToTerraformPreDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformPreDirectoryName }}
+  pathToTerraformWebAppDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformWebAppDirectoryName }}
+  pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.webAppSolutionName }}/${{ parameters.webAppProjectName }}

@@ -1,9 +1,18 @@
 name: BuildRelease
 variables:
-  - template: environments/global.yml
-  - template: environments/dev.yml
-  - template: environments/test.yml
-  - template: environments/prod.yml
+  - template: env/global.yml
+  - template: env/dev.yml
+  - template: env/test.yml
+  - template: env/prod.yml
+  - template: variables.yml
+    parameters:
+      terraformDirectoryName: ${{ variables.terraformDirectoryName }}
+      terraformEnvironmentVariablesDirectoryName: ${{ variables.terraformEnvironmentVariablesDirectoryName }}
+      terraformInitDirectoryName: ${{ variables.terraformInitDirectoryName }}
+      terraformPreDirectoryName: ${{ variables.terraformPreDirectoryName }}
+      terraformWebAppDirectoryName: ${{ variables.terraformWebAppDirectoryName }}
+      webAppProjectName: ${{ variables.webAppProjectName }}
+      webAppSolutionName: ${{ variables.webAppSolutionName }}
 trigger:
   - main
 stages:
