@@ -15,10 +15,6 @@ steps:
     displayName: Install Terraform
     inputs:
       terraformVersion: 1.0.0
-  - bash: |
-      cd ${{ parameters.pathToTerraformDirectory }}
-      terraform workspace select ${{ parameters.environmentName }} 
-    displayName: Checkout Terraform workspace - ${{ parameters.environmentName }}
   - task: TerraformTaskV2@2
     displayName: Terraform - Initialize
     inputs:
@@ -29,6 +25,10 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
+  - bash: |
+      cd ${{ parameters.pathToTerraformDirectory }}
+      terraform workspace select ${{ parameters.environmentName }} 
+    displayName: Checkout Terraform workspace - ${{ parameters.environmentName }}
   - task: TerraformTaskV2@2
     displayName: Terraform - Validate
     inputs:
