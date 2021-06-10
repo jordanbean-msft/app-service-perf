@@ -1,6 +1,1 @@
-LOCATION             = "southcentralus"
-REGION               = "USSC"
-APPNAME              = "appServicePerf"
 ENVIRONMENT          = "DEV"
-AZUREADADMINOBJECTID = "3be33e46-bfe9-4d4c-b73f-be7d313fae27"
-PIPELINEOBJECTID     = "ceaf0fbe-a513-4653-ab94-274a7917740c"

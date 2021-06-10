@@ -1,13 +1,14 @@
 variables:
+  System.Debug: true
   artifactName: WebApp
   backendAzureRmContainerName: tfstate
   backendAzureRmKey: terraform.tfstate
   backendAzureRmResourceGroupName: rg-terraform
   backendAzureRmStorageAccountName: terraformaiarjb
   configuration: Debug
+  globalTerraformVariableFilename: global.tvfars
   pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
   pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
   pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
   serviceConnectionName: jordanbean-aia
   webAppProjectName: AppServicePerf
-  System.Debug: true

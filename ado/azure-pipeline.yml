@@ -39,6 +39,7 @@ stages:
                 backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
                 backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
                 environmentName: ${{ variables.devEnvironmentName }}
+                globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
                 pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
@@ -73,6 +74,7 @@ stages:
                 backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
                 backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
                 environmentName: ${{ variables.testEnvironmentName }}
+                globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
                 pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
@@ -108,6 +110,7 @@ stages:
                 backendAzureRmResourceGroupName: ${{ variables.backendAzureRmResourceGroupName }}
                 backendAzureRmStorageAccountName: ${{ variables.backendAzureRmStorageAccountName }}
                 environmentName: ${{ variables.prodEnvironmentName }}
+                globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformDirectory }}
                 pathToTerraformVariableDirectory: ${{ variables.pathToTerraformVariableDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}

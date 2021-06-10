@@ -25,14 +25,42 @@ resource "azurerm_monitor_diagnostic_setting" "storageLogging" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
   log {
     category = "StorageRead"
+    enabled = true
+    retention_policy {
+      days = 0
+      enabled = true
+    }
   }
   log {
     category = "StorageWrite"
+    enabled = true
+    retention_policy {
+      days = 0
+      enabled = true
+    }
   }
   log {
     category = "StorageDelete"
+    enabled = true
+    retention_policy {
+      days = 0
+      enabled = true
+    }
   }
   metric {
     category = "Transaction"
+    enabled = true
+    retention_policy {
+      days = 0
+      enabled = true
+    }
+  }
+  metric {
+    category = "Capacity"
+    enabled = true
+    retention_policy {
+      days = 0
+      enabled = true
+    }
   }
 }

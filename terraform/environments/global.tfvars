@@ -1,0 +1,8 @@
+APPNAME              = "appServicePerf"
+AZUREADADMINOBJECTID = "3be33e46-bfe9-4d4c-b73f-be7d313fae27"
+LOCATION             = "southcentralus"
+PIPELINEOBJECTID     = "ceaf0fbe-a513-4653-ab94-274a7917740c"
+REGION               = "USSC"
+WEBAPPCLIENTID       = "2906cd78-9ada-4bf5-88cc-29a3ac0700ef"
+WEBAPPDOMAIN         = "microsoft.onmicrosoft.com"
+WEBAPPTENANTID	     = "72f988bf-86f1-41af-91ab-2d7cd011db47"

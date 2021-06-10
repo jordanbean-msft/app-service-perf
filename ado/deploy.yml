@@ -5,6 +5,7 @@ parameters:
   - name: backendAzureRmResourceGroupName
   - name: backendAzureRmStorageAccountName
   - name: environmentName
+  - name: globalTerraformVariableFilename
   - name: pathToTerraformDirectory
   - name: pathToTerraformVariableDirectory
   - name: serviceConnectionName
@@ -22,6 +23,7 @@ steps:
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
       backendServiceArm: ${{ parameters.serviceConnectionName }}
       environmentName: ${{ parameters.environmentName }}
+      globalTerraformVariableFilename: ${{ parameters.globalTerraformVariableFilename }}
       environmentServiceNameAzureRM: ${{ parameters.serviceConnectionName }}
       pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
       pathToTerraformVariableDirectory: ${{ parameters.pathToTerraformVariableDirectory }}
