@@ -35,23 +35,11 @@ steps:
       backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
       backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
   - task: TerraformTaskV2@2
-    displayName: Terraform - Plan
-    inputs:
-      command: plan
-      workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      commandOptions: -var-file=${{ parameters.pathToTerraformDirectory }}/environments/dev.tfvars -var "SQLSERVERADMINUSERNAME=$(TF_VAR_SQLSERVERADMINUSERNAME)" -var "SQLSERVERADMINPASSWORD=$(TF_VAR_SQLSERVERADMINPASSWORD)" -var "WEBAPPCLIENTSECRET=$(TF_VAR_WEBAPPCLIENTSECRET)"
-      backendServiceArm: ${{ parameters.backendServiceArm }}
-      backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
-      backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
-      backendAzureRmContainerName: ${{ parameters.backendAzureRmContainerName }}
-      backendAzureRmKey: ${{ parameters.backendAzureRmKey }}
-      environmentServiceNameAzureRM: ${{ parameters.environmentServiceNameAzureRM }}
-  - task: TerraformTaskV2@2
     displayName: Terraform - Apply
     inputs:
       command: apply
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      commandOptions: '-var-file=${{ parameters.pathToTerraformDirectory }}/environments/dev.tfvars'
+      commandOptions: -var-file=${{ parameters.pathToTerraformDirectory }}/environments/dev.tfvars  -var "SQLSERVERADMINUSERNAME=$(TF_VAR_SQLSERVERADMINUSERNAME)" -var "SQLSERVERADMINPASSWORD=$(TF_VAR_SQLSERVERADMINPASSWORD)" -var "WEBAPPCLIENTSECRET=$(TF_VAR_WEBAPPCLIENTSECRET)"
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
