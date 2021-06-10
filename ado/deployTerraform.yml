@@ -28,8 +28,6 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         terraform workspace select ${{ parameters.environmentName }} 
-    displayName: Checkout Terraform workspace - ${{ parameters.environmentName }}
-    workingDirectory: ${{ parameters.pathToTerraformDirectory }}
   - task: AzureCLI@2
     displayName: Terraform - Validate 
     inputs:
