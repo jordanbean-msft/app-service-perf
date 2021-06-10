@@ -17,7 +17,6 @@ steps:
       globalTerraformVariableFilename: ${{ parameters.globalTerraformVariableFilename }}
       pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
       pathToTerraformEnvironmentVariablesDirectory: ${{ parameters.pathToTerraformEnvironmentVariablesDirectory }}
-      serviceConnectionName: ${{ parameters.serviceConnectionName }}
   - template: deployWebApp.yml
     parameters:
       appServiceName: $(terraformOutput.appServiceName) 
