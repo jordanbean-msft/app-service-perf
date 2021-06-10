@@ -45,7 +45,7 @@ variable "webAppClientSecret" {
   sensitive = true
 }
 
-variable "githubActionsObjectId" {
+variable "pipelineObjectId" {
   type = string
 }
 

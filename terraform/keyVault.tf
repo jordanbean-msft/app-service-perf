@@ -8,16 +8,16 @@ resource "azurerm_key_vault" "keyVault" {
   tenant_id                       = var.webAppTenantId
 }
 
-resource "azurerm_role_assignment" "githubActionKeyVaultAdministratorRole" {
+resource "azurerm_role_assignment" "pipelineKeyVaultAdministratorRole" {
   scope                = azurerm_key_vault.keyVault.id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = var.githubActionsObjectId
+  principal_id         = var.pipelineObjectId
 }
 
 resource "time_sleep" "waitForRbacPropagation" {
   create_duration = "30s"
   depends_on = [
-    azurerm_role_assignment.githubActionKeyVaultAdministratorRole
+    azurerm_role_assignment.pipelineKeyVaultAdministratorRole
   ]
 }
 
