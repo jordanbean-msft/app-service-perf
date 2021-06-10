@@ -6,7 +6,7 @@ variables:
   backendAzureRmResourceGroupName: rg-terraform
   backendAzureRmStorageAccountName: terraformaiarjb
   configuration: Debug
-  globalTerraformVariableFilename: global.tvfars
+  globalTerraformVariableFilename: global
   pathToTerraformDirectory: $(System.DefaultWorkingDirectory)/terraform
   pathToTerraformVariableDirectory: $(SystemDefaultWorkingDirectory)/terraform/environments
   pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/AppServicePerf/AppServicePerf
