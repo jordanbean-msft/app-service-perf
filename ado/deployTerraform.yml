@@ -15,7 +15,7 @@ steps:
     inputs:
       azureSubscription: ${{ parameters.backendServiceArm }}
       scriptType: FilePath
-      scriptPath: getPipelineObjectId.ps1
+      scriptPath: AppServicePerf/ado/getPipelineObjectId.ps1
   - task: TerraformInstaller@0
     displayName: Install Terraform
     inputs:
