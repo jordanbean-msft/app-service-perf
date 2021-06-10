@@ -40,7 +40,7 @@ steps:
     inputs:
       command: apply
       workingDirectory: ${{ parameters.pathToTerraformDirectory }}
-      commandOptions: -var-file=${{ parameters.pathToTerraformDirectory }}/environments/dev.tfvars -var "SQLSERVERADMINUSERNAME=$(TF_VAR_SQLSERVERADMINUSERNAME)" -var "SQLSERVERADMINPASSWORD=$(TF_VAR_SQLSERVERADMINPASSWORD)" -var "WEBAPPCLIENTSECRET=$(TF_VAR_WEBAPPCLIENTSECRET)"
+      commandOptions: -var-file=${{ parameters.pathToTerraformDirectory }}/environments/${{ parameters.environmentName }}.tfvars -var "SQLSERVERADMINUSERNAME=$(TF_VAR_SQLSERVERADMINUSERNAME)" -var "SQLSERVERADMINPASSWORD=$(TF_VAR_SQLSERVERADMINPASSWORD)" -var "WEBAPPCLIENTSECRET=$(TF_VAR_WEBAPPCLIENTSECRET)"
       backendServiceArm: ${{ parameters.backendServiceArm }}
       backendAzureRmResourceGroupName: ${{ parameters.backendAzureRmResourceGroupName }}
       backendAzureRmStorageAccountName: ${{ parameters.backendAzureRmStorageAccountName }}
