@@ -11,6 +11,9 @@ resource "azurerm_app_service_plan" "appServicePlan" {
 data "azurerm_key_vault_secret" "cacheCredentialSecret" {
   name         = "cacheCredentials"
   key_vault_id = var.keyVault.id
+  depends_on = [
+    azurerm_key_vault_secret.cacheConnectionSecret
+  ]
 }
 
 data "azurerm_key_vault_secret" "webAppClientSecret" {
@@ -67,8 +70,4 @@ resource "azurerm_role_assignment" "managedIdentityWebAppStorageRoleAssignment" 
   scope                = azurerm_storage_account.storageAccount.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_app_service.appService.identity[0].principal_id
-}
-
-output "appServiceName" {
-  value = azurerm_app_service.appService.name
 }

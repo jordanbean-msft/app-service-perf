@@ -8,8 +8,8 @@ terraform {
   backend "azurerm" {
     resource_group_name  = "rg-terraform"
     storage_account_name = "terraformaiarjb"
-    container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    container_name       = "appserviceperf"
+    key                  = "webApp.tfstate"
   }
 }
 
@@ -19,24 +19,21 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_resource_group" "resourceGroup" {
-  name     = "rg-${local.longName}"
-  location = var.LOCATION
+data "azurerm_key_vault" "keyVault" {
+  name = var.KEYVAULTNAME
+  resource_group_name = var.RESOURCEGROUPNAME
 }
 
-module "init" {
-  source        = "./init-module"
-  resourceGroup = azurerm_resource_group.resourceGroup
-  shortName     = local.shortName
-  tenantId      = var.WEBAPPTENANTID
+data "azurerm_resource_group" "resourceGroup" {
+  name = var.RESOURCEGROUPNAME
 }
 
 module "webApp" {
   source                            = "./webApp-module"
-  resourceGroup                     = azurerm_resource_group.resourceGroup
+  resourceGroup                     = data.azurerm_resource_group.resourceGroup
   shortName                         = local.shortName
   longName                          = local.longName
-  keyVault                          = module.init.keyVault
+  keyVault                          = data.azurerm_key_vault.keyVault
   tenantId                          = var.WEBAPPTENANTID
   appName                           = var.APPNAME
   region                            = var.REGION

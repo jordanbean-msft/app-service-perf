@@ -7,7 +7,3 @@ resource "azurerm_key_vault" "keyVault" {
   enabled_for_template_deployment = true
   tenant_id                       = var.tenantId
 }
-
-output "keyVault" {
-  value = azurerm_key_vault.keyVault
-}

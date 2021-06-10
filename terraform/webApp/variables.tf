@@ -53,6 +53,14 @@ variable "STORAGEACCOUNTCONTAINERIMAGESNAME" {
   type = string
 }
 
+variable "RESOURCEGROUPNAME" {
+  type = string
+}
+
+variable "KEYVAULTNAME" {
+  type = string
+}
+
 locals {
   longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
   shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"
