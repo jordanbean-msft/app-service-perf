@@ -10,12 +10,13 @@ parameters:
   - name: backendAzureRmKey
   
 steps:
-  - task: AzurePowerShell@4
+  - task: AzurePowerShell@5
     displayName: Get Pipeline Service Principal Object Id
     inputs:
       azureSubscription: ${{ parameters.backendServiceArm }}
       scriptType: FilePath
       scriptPath: ado/getPipelineObjectId.ps1
+      pwsh: true
   - task: TerraformInstaller@0
     displayName: Install Terraform
     inputs:
