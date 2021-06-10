@@ -23,6 +23,6 @@ steps:
     displayName: Publish
     inputs:
       command: publish
-      arguments: -c ${{ parameters.configuration }} -o $(Build.ArtifactStagingDirectory)
+      arguments: -c ${{ parameters.configuration }} -o $(Build.ArtifactStagingDirectory) -p:PublishSingleFile=false
   - publish: $(Build.ArtifactStagingDirectory)
     artifact: ${{ parameters.artifactName }}
