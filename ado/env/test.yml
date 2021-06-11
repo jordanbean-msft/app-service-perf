@@ -1,2 +1,4 @@
 variables:
   testEnvironmentName: test
+  testKeyVaultName: kvappServicePerfussctest
+  testResourceGroupName: rg-appServicePerf-ussc-test

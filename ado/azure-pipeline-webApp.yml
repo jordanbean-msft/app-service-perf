@@ -35,8 +35,11 @@ stages:
         vmImage: ubuntu-latest
       environment: ${{ variables.devEnvironmentName }}
       variables:
-        - group: ${{ variables.webAppSolutionName }}-${{ variables.devEnvironmentName }}
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.devEnvironmentName }}
+        - name: TF_VAR_KEYVAULTNAME
+          value: ${{ variables.devKeyVaultName }} 
+        - name: TF_VAR_RESOURCEGROUPNAME
+          value: ${{ variables.devResourceGroupName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
@@ -73,8 +76,11 @@ stages:
         vmImage: ubuntu-latest
       environment: ${{ variables.testEnvironmentName }}
       variables:
-        - group: ${{ variables.webAppSolutionName }}-${{ variables.testEnvironmentName }}
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.testEnvironmentName }}
+        - name: TF_VAR_KEYVAULTNAME
+          value: ${{ variables.testKeyVaultName }} 
+        - name: TF_VAR_RESOURCEGROUPNAME
+          value: ${{ variables.testResourceGroupName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
@@ -111,8 +117,11 @@ stages:
         vmImage: ubuntu-latest
       environment: ${{ variables.prodEnvironmentName }}
       variables:
-        - group: ${{ variables.webAppSolutionName }}-${{ variables.prodEnvironmentName }}
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.prodEnvironmentName }}
+        - name: TF_VAR_KEYVAULTNAME
+          value: ${{ variables.prodKeyVaultName }} 
+        - name: TF_VAR_RESOURCEGROUPNAME
+          value: ${{ variables.prodResourceGroupName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID

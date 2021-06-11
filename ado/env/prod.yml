@@ -1,2 +1,4 @@
 variables:
   prodEnvironmentName: prod
+  prodKeyVaultName: kvappServicePerfUSSCPROD
+  prodResourceGroupName: rg-appServicePerf-USSC-PROD
