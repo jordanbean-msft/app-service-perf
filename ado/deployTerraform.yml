@@ -51,7 +51,7 @@ steps:
       ARM_CLIENT_ID: $(ArmClientId)
       ARM_CLIENT_SECRET: $(ArmClientSecret)
   - bash: |
-      terraform output -json ./terraformApplyOutput.json
+      terraform output -json > ./terraformApplyOutput.json
     displayName: Terraform - Output
     workingDirectory: ${{ parameters.pathToTerraformDirectory }}
     env:
