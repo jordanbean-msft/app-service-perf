@@ -13,3 +13,5 @@ resource "azurerm_key_vault_secret" "cacheConnectionSecret" {
   key_vault_id = var.keyVault.id
   value        = azurerm_redis_cache.redisCache.primary_connection_string
 }
+
+# delay needed here
