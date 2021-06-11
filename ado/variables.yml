@@ -2,8 +2,11 @@ parameters:
   - name: terraformDirectoryName
   - name: terraformEnvironmentVariablesDirectoryName
   - name: terraformInitDirectoryName
+    default: ''
   - name: terraformPreDirectoryName
+    default: ''
   - name: terraformWebAppDirectoryName
+    default: ''
   - name: webAppProjectName
   - name: webAppSolutionName
 
