@@ -12,7 +12,7 @@ data "azurerm_key_vault_secret" "cacheCredentialSecret" {
   name         = "cacheCredentials"
   key_vault_id = var.keyVault.id
   depends_on = [
-    azurerm_key_vault_secret.cacheConnectionSecret
+    azurerm_key_vault_secret.cacheCredentialSecret
   ]
 }
 
