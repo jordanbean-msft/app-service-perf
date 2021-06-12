@@ -8,8 +8,8 @@ resource "azurerm_redis_cache" "redisCache" {
   minimum_tls_version = "1.2"
 }
 
-resource "azurerm_key_vault_secret" "cacheConnectionSecret" {
-  name         = "cacheConnection"
+resource "azurerm_key_vault_secret" "cacheCredentialSecret" {
+  name         = "cacheCredentials"
   key_vault_id = var.keyVault.id
   value        = azurerm_redis_cache.redisCache.primary_connection_string
 }
