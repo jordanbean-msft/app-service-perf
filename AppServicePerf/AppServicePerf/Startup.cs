@@ -32,7 +32,7 @@ namespace AppServicePerf {
             services.AddAzureClients(builder => {
                 builder.UseCredential(new DefaultAzureCredential());
 
-                FeatureFlagStorage storageFeatureFlag = Enum.Parse<FeatureFlagStorage>(Configuration.GetValue<string>("FEATURE_FLAG_STORAGE"));
+                FeatureFlagStorage storageFeatureFlag = Enum.Parse<FeatureFlagStorage>(Configuration.GetValue<string>("FeatureFlagStorage"));
 
                 switch(storageFeatureFlag) {
                     case FeatureFlagStorage.MANAGED_IDENTITY:
@@ -63,7 +63,7 @@ namespace AppServicePerf {
                 .AddMicrosoftIdentityUI();
 
             services.AddDbContext<AppServicePerfContext>(options => {                
-                FeatureFlagSql sqlFeatureFlag = Enum.Parse<FeatureFlagSql>(Configuration.GetValue<string>("FEATURE_FLAG_SQL"));
+                FeatureFlagSql sqlFeatureFlag = Enum.Parse<FeatureFlagSql>(Configuration.GetValue<string>("FeatureFlagSql"));
                 
                 switch(sqlFeatureFlag) {
                     case FeatureFlagSql.MANAGED_IDENTITY:
