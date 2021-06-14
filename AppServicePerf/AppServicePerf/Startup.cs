@@ -35,7 +35,7 @@ namespace AppServicePerf {
                 FeatureFlagStorage storageFeatureFlag = Enum.Parse<FeatureFlagStorage>(Configuration.GetValue<string>("FEATURE_FLAG_STORAGE"));
 
                 switch(storageFeatureFlag) {
-                    case FeatureFlagStorage.MANAGED_IDENTITY_STORAGE:
+                    case FeatureFlagStorage.MANAGED_IDENTITY:
                         builder.AddBlobServiceClient(Configuration.GetSection("Storage"));
                         break;
                     case FeatureFlagStorage.STORAGE_ACCOUNT_KEY:
@@ -66,7 +66,7 @@ namespace AppServicePerf {
                 FeatureFlagSql sqlFeatureFlag = Enum.Parse<FeatureFlagSql>(Configuration.GetValue<string>("FEATURE_FLAG_SQL"));
                 
                 switch(sqlFeatureFlag) {
-                    case FeatureFlagSql.MANAGED_IDENTITY_SQL:
+                    case FeatureFlagSql.MANAGED_IDENTITY:
                         options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfManagedIdentityContext"));
                         options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
                         break;
