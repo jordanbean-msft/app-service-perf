@@ -5,3 +5,7 @@ output "resourceGroupName" {
 output "virtualNetworkName" {
   value = module.pre.virtualNetworkName
 }
+
+output "adoAgentAddressPrefix" {
+  value = module.pre.adoAgentAddressPrefix
+}

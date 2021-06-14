@@ -14,6 +14,14 @@ variable "LOCATION" {
   type = string
 }
 
+variable "ADDRESSSPACE" {
+  type = string
+}
+
+variable "ADOAGENTADDRESSPREFIX" {
+  type = string
+}
+
 locals {
   longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
   shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"

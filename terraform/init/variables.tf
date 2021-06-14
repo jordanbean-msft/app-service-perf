@@ -14,7 +14,27 @@ variable "WEBAPPTENANTID" {
   type = string
 }
 
-variable "RESOURCEGROUPNAME" {
+variable "ADDRESSSPACE" {
+  type = string
+}
+
+variable "LOCATION" {
+  type = string
+}
+
+variable "BLOCKID" {
+  type = string
+}
+
+variable "CENTRALVIRTUALNETWORKNAME" {
+  type = string
+}
+
+variable "CENTRALRESOURCEGROUPNAME" {
+  type = string  
+}
+
+variable "CENTRALADOAGENTADDRESSPREFIX" {
   type = string
 }
 

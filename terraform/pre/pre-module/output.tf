@@ -5,3 +5,7 @@ output "resourceGroupName" {
 output "virtualNetworkName" {
   value = azurerm_virtual_network.vNet.name
 }
+
+output "adoAgentAddressPrefix" {
+  value = var.adoAgentAddressPrefix
+}

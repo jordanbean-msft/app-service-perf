@@ -23,4 +23,6 @@ module "pre" {
   source        = "./pre-module"
   longName      = local.longName
   location      = var.LOCATION
+  addressSpace  = var.ADDRESSSPACE
+  adoAgentAddressPrefix = var.ADOAGENTADDRESSPREFIX
 }

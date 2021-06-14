@@ -19,13 +19,16 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-data "azurerm_resource_group" "resourceGroup" {
-  name = var.RESOURCEGROUPNAME
-}
-
 module "init" {
   source        = "./init-module"
-  resourceGroup = data.azurerm_resource_group.resourceGroup
+  longName      = local.longName
   shortName     = local.shortName
   tenantId      = var.WEBAPPTENANTID
+  addressSpace  = var.ADDRESSSPACE
+  location      = var.LOCATION
+  blockId       = var.BLOCKID
+  centralVirtualNetworkName = var.CENTRALVIRTUALNETWORKNAME
+  centralResourceGroupName = var.CENTRALRESOURCEGROUPNAME
+  environment = var.ENVIRONMENT
+  centralAdoAgentAddressPrefix = var.CENTRALADOAGENTADDRESSPREFIX
 }
