@@ -51,8 +51,10 @@ namespace AppServicePerf {
                 .AddMicrosoftIdentityUI();
 
             services.AddDbContext<AppServicePerfContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfContext"));
-                options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
+                options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfSqlPasswordContext"));
+                //Uncomment for Managed Identity
+                //options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfManagedIdentityContext"));
+                //options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
                 }
             );
 

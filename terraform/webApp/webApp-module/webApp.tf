@@ -21,6 +21,16 @@ data "azurerm_key_vault_secret" "webAppClientSecret" {
   key_vault_id = var.keyVault.id
 }
 
+data "azurerm_key_vault_secret" "sqlServerAdminUsername" {
+  name         = "sqlServerAdminUsername"
+  key_vault_id = var.keyVault.id
+}
+
+data "azurerm_key_vault_secret" "sqlServerAdminPassword" {
+  name         = "sqlServerAdminPassword"
+  key_vault_id = var.keyVault.id
+}
+
 resource "azurerm_app_service" "appService" {
   name                = "app-${var.longName}"
   resource_group_name = var.resourceGroup.name
@@ -32,16 +42,17 @@ resource "azurerm_app_service" "appService" {
     type = "SystemAssigned"
   }
   app_settings = {
-    APPINSIGHTS_INSTRUMENTATIONKEY            = azurerm_application_insights.appInsights.instrumentation_key
-    APPLICATIONINSIGHTS_CONNECTION_STRING     = azurerm_application_insights.appInsights.connection_string
-    "AzureAD:Domain"                          = var.webAppDomain
-    "AzureAD:ClientId"                        = var.webAppClientId
-    "AzureAD:TenantId"                        = var.tenantId
-    "AzureAD:ClientSecret"                    = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.webAppClientSecret.name})"
-    "Storage:ServiceUri"                      = azurerm_storage_account.storageAccount.primary_blob_endpoint
-    "ConnectionStrings:AppServicePerfContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
-    "ConnectionStrings:RedisCache"            = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.cacheCredentialSecret.name})"
-    WEBSITE_RUN_FROM_PACKAGE                  = 1
+    APPINSIGHTS_INSTRUMENTATIONKEY                           = azurerm_application_insights.appInsights.instrumentation_key
+    APPLICATIONINSIGHTS_CONNECTION_STRING                    = azurerm_application_insights.appInsights.connection_string
+    "AzureAD:Domain"                                         = var.webAppDomain
+    "AzureAD:ClientId"                                       = var.webAppClientId
+    "AzureAD:TenantId"                                       = var.tenantId
+    "AzureAD:ClientSecret"                                   = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.webAppClientSecret.name})"
+    "Storage:ServiceUri"                                     = azurerm_storage_account.storageAccount.primary_blob_endpoint
+    "ConnectionStrings:AppServicePerfManagedIdentityContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
+    "ConnectionStrings:AppServicePerfSqlPasswordContext"     = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};User ID=${data.azurerm_key_vault_secret.sqlServerAdminUsername};Password=${data.azurerm_key_vault_secret.sqlServerAdminPassword};"
+    "ConnectionStrings:RedisCache"                           = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.cacheCredentialSecret.name})"
+    WEBSITE_RUN_FROM_PACKAGE                                 = 1
   }
 }
 

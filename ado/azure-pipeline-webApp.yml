@@ -139,14 +139,3 @@ stages:
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
                 webAppProjectName: ${{ variables.webAppProjectName }}
-    - job: waitForValidation
-      displayName: Wait for validation
-      dependsOn: Prod_Deploy
-      pool: server
-      timeoutInMinutes: 4320 # job times out in 3 days
-      steps:
-      - task: ManualValidation@0
-        timeoutInMinutes: 1440 # task times out in 1 day
-        inputs:
-          instructions: 'Please validate the deployment and resume'
-          onTimeout: reject
