@@ -11,6 +11,12 @@ resource "azurerm_subnet" "appServiceSubnet" {
   virtual_network_name = azurerm_virtual_network.vNet.name
   address_prefixes     = ["10.${var.blockId}.1.0/24"]
   service_endpoints    = ["Microsoft.Web", "Microsoft.Storage"]
+  delegation {
+    name = "appServiceDelegation"
+    service_delegation {
+      name = "Microsoft.Web/serverFarms"
+    }
+  }
 }
 
 data "azurerm_virtual_network" "centralVirtualNetwork" {
@@ -52,7 +58,7 @@ resource "azurerm_network_security_group" "appServiceSubnetNSG" {
       source_address_prefix = var.centralAdoAgentAddressPrefix
       source_address_prefixes = []
       source_application_security_group_ids = []
-      source_port_range = "Any"
+      source_port_range = "*"
       source_port_ranges = []
     },
     {
@@ -61,16 +67,16 @@ resource "azurerm_network_security_group" "appServiceSubnetNSG" {
       destination_address_prefix = "10.${var.blockId}.1.0/24"
       destination_address_prefixes = []
       destination_application_security_group_ids = []
-      destination_port_range = "Any"
+      destination_port_range = "*"
       destination_port_ranges = []
       direction = "Inbound"
       name = "denyAllOtherTraffic"
       priority = 200
       protocol = "*"
-      source_address_prefix = "Any"
+      source_address_prefix = "*"
       source_address_prefixes = []
       source_application_security_group_ids = []
-      source_port_range = "Any"
+      source_port_range = "*"
       source_port_ranges = []
     }
   ]

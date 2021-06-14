@@ -65,6 +65,18 @@ resource "azurerm_app_service" "appService" {
   }
 }
 
+data "azurerm_subnet" "appServiceSubnet" {
+  name = var.appServiceSubnetName
+  resource_group_name = var.resourceGroup.name
+  virtual_network_name = var.vNetName
+}
+
+
+resource "azurerm_app_service_virtual_network_swift_connection" "appServicePlanvNetIntegration" {
+  app_service_id = azurerm_app_service.appService.id
+  subnet_id = data.azurerm_subnet.appServiceSubnet.id
+}
+
 resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
   name                       = "appServiceLogging"
   target_resource_id         = azurerm_app_service_plan.appServicePlan.id

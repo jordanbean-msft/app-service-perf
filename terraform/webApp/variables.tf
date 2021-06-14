@@ -61,6 +61,14 @@ variable "KEYVAULTNAME" {
   type = string
 }
 
+variable "APPSERVICESUBNETNAME" {
+  type = string
+}
+
+variable "VNETNAME" {
+  type = string
+}
+
 locals {
   longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
   shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"

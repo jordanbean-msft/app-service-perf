@@ -44,4 +44,6 @@ module "webApp" {
   storageAccountContainerImagesName = var.STORAGEACCOUNTCONTAINERIMAGESNAME
   webAppDomain                      = var.WEBAPPDOMAIN
   webAppClientId                    = var.WEBAPPCLIENTID
+  vNetName                          = var.VNETNAME
+  appServiceSubnetName              = var.APPSERVICESUBNETNAME
 }

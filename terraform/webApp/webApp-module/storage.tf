@@ -6,11 +6,11 @@ resource "azurerm_storage_account" "storageAccount" {
   account_replication_type = "LRS"
   allow_blob_public_access = false
   min_tls_version          = "TLS1_2"
-  #   network_rules {
-  #     default_action             = "Deny"
-  #     virtual_network_subnet_ids = [azurerm_subnet.appServiceSubnet.id]
-  #     bypass                     = ["AzureServices"]
-  #   }
+     network_rules {
+       default_action             = "Deny"
+       virtual_network_subnet_ids = [data.azurerm_subnet.appServiceSubnet.id]
+       bypass                     = ["AzureServices"]
+     }
 }
 
 resource "azurerm_storage_container" "storageAccountContainer" {

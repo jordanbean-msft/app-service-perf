@@ -55,3 +55,11 @@ variable "webAppDomain" {
 variable "webAppClientId" {
   type = string
 }
+
+variable "vNetName" {
+  type = string
+}
+
+variable "appServiceSubnetName" {
+  type = string  
+}
