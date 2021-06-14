@@ -143,3 +143,8 @@ resource "azurerm_monitor_diagnostic_setting" "dbLogging" {
     }
   }
 }
+
+resource "azurerm_key_vault_secret" "sqlServerConnectionString" {
+  name = "sqlServerConnectionString"
+  value = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};User ID=${var.sqlServerAdminUsername};Password=${var.sqlServerAdminPassword};"
+}

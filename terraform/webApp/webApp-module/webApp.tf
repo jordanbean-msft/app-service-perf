@@ -16,18 +16,16 @@ data "azurerm_key_vault_secret" "cacheCredentialSecret" {
   ]
 }
 
+data "azurerm_key_vault_secret" "sqlServerConnectionString" {
+  name         = "sqlServerConnectionString"
+  key_vault_id = var.keyVault.id
+  depends_on = [
+    azurerm_key_vault_secret.sqlServerConnectionString
+  ]
+}
+
 data "azurerm_key_vault_secret" "webAppClientSecret" {
   name         = "webAppClientSecret"
-  key_vault_id = var.keyVault.id
-}
-
-data "azurerm_key_vault_secret" "sqlServerAdminUsername" {
-  name         = "sqlServerAdminUsername"
-  key_vault_id = var.keyVault.id
-}
-
-data "azurerm_key_vault_secret" "sqlServerAdminPassword" {
-  name         = "sqlServerAdminPassword"
   key_vault_id = var.keyVault.id
 }
 
@@ -50,7 +48,7 @@ resource "azurerm_app_service" "appService" {
     "AzureAD:ClientSecret"                                   = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.webAppClientSecret.name})"
     "Storage:ServiceUri"                                     = azurerm_storage_account.storageAccount.primary_blob_endpoint
     "ConnectionStrings:AppServicePerfManagedIdentityContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
-    "ConnectionStrings:AppServicePerfSqlPasswordContext"     = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};User ID=${data.azurerm_key_vault_secret.sqlServerAdminUsername};Password=${data.azurerm_key_vault_secret.sqlServerAdminPassword};"
+    "ConnectionStrings:AppServicePerfSqlPasswordContext"     = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.sqlServerConnectionString.name})"
     "ConnectionStrings:RedisCache"                           = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.cacheCredentialSecret.name})"
     WEBSITE_RUN_FROM_PACKAGE                                 = 1
   }
