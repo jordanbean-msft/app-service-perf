@@ -2,3 +2,5 @@ variables:
   prodEnvironmentName: prod
   prodKeyVaultName: kvappServicePerfUSSCPROD
   prodResourceGroupName: rg-appServicePerf-USSC-PROD
+  prodAppServiceSubnetName: appServiceSubnet
+  prodvNetName: vnet-appServicePerf-USSC-PROD

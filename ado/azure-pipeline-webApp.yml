@@ -40,6 +40,10 @@ stages:
           value: ${{ variables.devKeyVaultName }} 
         - name: TF_VAR_RESOURCEGROUPNAME
           value: ${{ variables.devResourceGroupName }} 
+        - name: TF_VAR_APPSERVICESUBNETNAME
+          value: ${{ variables.devAppServiceSubnetName }} 
+        - name: TF_VAR_VNETNAME
+          value: ${{ variables.devvNetName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
@@ -81,6 +85,10 @@ stages:
           value: ${{ variables.testKeyVaultName }} 
         - name: TF_VAR_RESOURCEGROUPNAME
           value: ${{ variables.testResourceGroupName }} 
+        - name: TF_VAR_APPSERVICESUBNETNAME
+          value: ${{ variables.testAppServiceSubnetName }} 
+        - name: TF_VAR_VNETNAME
+          value: ${{ variables.testvNetName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
@@ -122,6 +130,10 @@ stages:
           value: ${{ variables.prodKeyVaultName }} 
         - name: TF_VAR_RESOURCEGROUPNAME
           value: ${{ variables.prodResourceGroupName }} 
+        - name: TF_VAR_APPSERVICESUBNETNAME
+          value: ${{ variables.prodAppServiceSubnetName }} 
+        - name: TF_VAR_VNETNAME
+          value: ${{ variables.prodvNetName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID

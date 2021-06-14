@@ -2,3 +2,5 @@ variables:
   testEnvironmentName: test
   testKeyVaultName: kvappServicePerfussctest
   testResourceGroupName: rg-appServicePerf-ussc-test
+  testAppServiceSubnetName: appServiceSubnet
+  testvNetName: vnet-appServicePerf-USSC-test
