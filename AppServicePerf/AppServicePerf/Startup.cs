@@ -31,7 +31,19 @@ namespace AppServicePerf {
         public void ConfigureServices(IServiceCollection services) {
             services.AddAzureClients(builder => {
                 builder.UseCredential(new DefaultAzureCredential());
-                builder.AddBlobServiceClient(Configuration.GetSection("Storage"));
+
+                FeatureFlagStorage storageFeatureFlag = Enum.Parse<FeatureFlagStorage>(Configuration.GetValue<string>("FEATURE_FLAG_STORAGE"));
+
+                switch(storageFeatureFlag) {
+                    case FeatureFlagStorage.MANAGED_IDENTITY_STORAGE:
+                        builder.AddBlobServiceClient(Configuration.GetSection("Storage"));
+                        break;
+                    case FeatureFlagStorage.STORAGE_ACCOUNT_KEY:
+                        builder.AddBlobServiceClient(Configuration.GetConnectionString("StorageAccount"));
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
                 builder.ConfigureDefaults(Configuration.GetSection("AzureDefaults"));
             });
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
@@ -50,11 +62,20 @@ namespace AppServicePerf {
                 .AddMvcOptions(options => { })
                 .AddMicrosoftIdentityUI();
 
-            services.AddDbContext<AppServicePerfContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfSqlPasswordContext"));
-                //Uncomment for Managed Identity
-                //options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfManagedIdentityContext"));
-                //options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
+            services.AddDbContext<AppServicePerfContext>(options => {                
+                FeatureFlagSql sqlFeatureFlag = Enum.Parse<FeatureFlagSql>(Configuration.GetValue<string>("FEATURE_FLAG_SQL"));
+                
+                switch(sqlFeatureFlag) {
+                    case FeatureFlagSql.MANAGED_IDENTITY_SQL:
+                        options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfManagedIdentityContext"));
+                        options.AddInterceptors(new AzureAdAuthenticationDbConnectionInterceptor());
+                        break;
+                    case FeatureFlagSql.SQL_AUTHENTICATION:
+                        options.UseSqlServer(Configuration.GetConnectionString("AppServicePerfSqlPasswordContext"));
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
                 }
             );
 
@@ -85,5 +106,8 @@ namespace AppServicePerf {
                 endpoints.MapControllers();
             });
         }
+
+        private enum FeatureFlagStorage { MANAGED_IDENTITY, STORAGE_ACCOUNT_KEY }
+        private enum FeatureFlagSql { MANAGED_IDENTITY, SQL_AUTHENTICATION }
     }
-}
+} 

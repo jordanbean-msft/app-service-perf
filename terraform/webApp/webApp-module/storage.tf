@@ -64,3 +64,9 @@ resource "azurerm_monitor_diagnostic_setting" "storageLogging" {
     }
   }
 }
+
+resource "azurerm_key_vault_secret" "storageAccountConnectionString" {
+  name = "storageAccountConnectionString"
+  key_vault_id = var.keyVault.id
+  value = azurerm_storage_account.storageAccount.primary_connection_string
+}
