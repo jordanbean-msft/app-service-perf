@@ -72,10 +72,6 @@ resource "azurerm_app_service" "appService" {
   }
 }
 
-resource "azurerm_monitor" "name" {
-  
-}
-
 data "azurerm_subnet" "appServiceSubnet" {
   name = var.appServiceSubnetName
   resource_group_name = var.resourceGroup.name
