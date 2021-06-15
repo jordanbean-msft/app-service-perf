@@ -5,10 +5,10 @@ resource "azurerm_virtual_network" "vNet" {
   address_space       = [var.addressSpace]
 }
 
-resource "azurerm_subnet" "adoAgent" {
-  name                 = "adoAgent"
+resource "azurerm_subnet" "adoAgentSubnet" {
+  name                 = "adoAgentSubnet"
   resource_group_name  = azurerm_resource_group.resourceGroup.name
   virtual_network_name = azurerm_virtual_network.vNet.name
   address_prefixes     = [var.adoAgentAddressPrefix]
-  service_endpoints    = []
+  service_endpoints    = ["Microsoft.ContainerRegistry", "Microsoft.Storage"]
 }

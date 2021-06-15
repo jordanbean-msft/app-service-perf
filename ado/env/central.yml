@@ -1,0 +1,8 @@
+variables:
+  centralEnvironmentName: central
+  centralResourceGroupName: rg-appServicePerf-USSC-central
+  centralAgentPoolName: ephemeralpool
+  centralContainerRegistryServiceConnectionName: PipelineAgentsImagesRegistry
+  centralImageName: crappserviceperfussccentral.azurecr.io/crappserviceperfussccentral/linux:ubuntu-16.04
+  centralvNetName: vnet-appServicePerf-USSC-central
+  centralAdoAgentSubnetName: adoAgentSubnet

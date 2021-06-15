@@ -14,6 +14,27 @@ variables:
 trigger:
   - main
 stages:
+  - stage: CreateEphemeralAgent
+    jobs:
+      - job: PrepareAgent
+        displayName: Prepare Agent
+        pool: Hosted Ubuntu 1604
+        steps:
+        - task: AzureContainerAgentCreate@0
+          displayName: 'Azure Container Create for pool ${{ variables.agentPoolName }}'
+          inputs:
+            azureSubscription: ${{ variables.serviceConnectionName }}
+            resourceGroupName: ${{ variables.centralResourceGroupName }}
+            location: ${{ variables.location}}
+            azureDevOpsToken: $(System.AccessToken)
+            containerRegistry: ${{ variables.centralContainerRegistryServiceConnectionName }}
+            imageName: ${{ variables.centralImageName }}
+            agentPool: ${{ variables.centralAgentPoolName }}
+            agentPrefix: '${{ variables.appName }}-'
+            vnetResourceGroupName: ${{ variables.centralResourceGroupName}}
+            vnetName: ${{ variables.centralvNetName }}
+            subnetName: ${{ variables.centralAdoAgentSubnetName }}
+
   - stage: Build
     jobs:
       - job: Build

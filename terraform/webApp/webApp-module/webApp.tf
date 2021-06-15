@@ -71,7 +71,6 @@ data "azurerm_subnet" "appServiceSubnet" {
   virtual_network_name = var.vNetName
 }
 
-
 resource "azurerm_app_service_virtual_network_swift_connection" "appServicePlanvNetIntegration" {
   app_service_id = azurerm_app_service.appService.id
   subnet_id = data.azurerm_subnet.appServiceSubnet.id

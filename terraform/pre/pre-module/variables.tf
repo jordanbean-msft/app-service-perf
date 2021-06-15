@@ -2,6 +2,18 @@ variable "longName" {
   type = string
 }
 
+variable "shortName" {
+  type = string
+}
+
+variable "appName" {
+  type = string
+}
+
+variable "environment" {
+  type = string
+}
+
 variable "location" {
   type = string
 }
