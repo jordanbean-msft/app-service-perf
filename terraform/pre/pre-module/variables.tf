@@ -25,3 +25,15 @@ variable "addressSpace" {
 variable "adoAgentAddressPrefix" {
   type = string
 }
+
+variable "azpUrl" {
+  type = string
+}
+
+variable "azpPool" {
+  type = string
+}
+
+variable "azpToken" {
+  type = string
+}

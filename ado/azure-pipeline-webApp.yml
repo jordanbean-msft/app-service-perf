@@ -15,32 +15,11 @@ variables:
 trigger:
   - main
 stages:
-  - stage: CreateEphemeralAgent
-    jobs:
-      - job: PrepareAgent
-        displayName: Prepare Agent
-        pool: Hosted Ubuntu 1604
-        steps:
-        - task: AzureContainerAgentCreate@0
-          displayName: 'Azure Container Create for pool ${{ variables.agentPoolName }}'
-          inputs:
-            azureSubscription: ${{ variables.serviceConnectionName }}
-            resourceGroupName: ${{ variables.centralResourceGroupName }}
-            location: ${{ variables.centralLocation}}
-            azureDevOpsToken: $(System.AccessToken)
-            containerRegistry: ${{ variables.centralContainerRegistryServiceConnectionName }}
-            imageName: ${{ variables.centralImageName }}
-            agentPool: ${{ variables.centralAgentPoolName }}
-            agentPrefix: '${{ variables.appName }}-'
-            vnetResourceGroupName: ${{ variables.centralResourceGroupName}}
-            vnetName: ${{ variables.centralvNetName }}
-            subnetName: ${{ variables.centralAdoAgentSubnetName }}
-
   - stage: Build
     jobs:
       - job: Build
         pool:
-          vmImage: ubuntu-latest
+          name: ${{ variables.adoAgentPoolName }}
         steps:
           - template: build.yml
             parameters:
@@ -54,7 +33,7 @@ stages:
     jobs:
     - deployment: Dev_Deploy
       pool:
-        vmImage: ubuntu-latest
+        name: ${{ variables.adoAgentPoolName }}
       environment: ${{ variables.devEnvironmentName }}
       variables:
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.devEnvironmentName }}
@@ -99,7 +78,7 @@ stages:
     jobs:
     - deployment: Test_Deploy
       pool:
-        vmImage: ubuntu-latest
+        name: ${{ variables.adoAgentPoolName }}
       environment: ${{ variables.testEnvironmentName }}
       variables:
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.testEnvironmentName }}
@@ -144,7 +123,7 @@ stages:
     jobs:
     - deployment: Prod_Deploy
       pool:
-        vmImage: ubuntu-latest
+        name: ${{ variables.adoAgentPoolName }}
       environment: ${{ variables.prodEnvironmentName }}
       variables:
         - group: ${{ variables.webAppSolutionName }}-KeyVault-${{ variables.prodEnvironmentName }}

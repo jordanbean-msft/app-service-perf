@@ -11,4 +11,10 @@ resource "azurerm_subnet" "adoAgentSubnet" {
   virtual_network_name = azurerm_virtual_network.vNet.name
   address_prefixes     = [var.adoAgentAddressPrefix]
   service_endpoints    = ["Microsoft.ContainerRegistry", "Microsoft.Storage"]
+  delegation {
+    name = "containerGroupDelegation"
+    service_delegation {
+      name = "Microsoft.ContainerInstance/containerGroups"
+    }
+  }
 }
