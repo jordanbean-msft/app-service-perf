@@ -4,7 +4,7 @@ resource "azurerm_application_insights" "appInsights" {
   location            = var.resourceGroup.location
   application_type    = "web"
   tags = {
-    "hidden-link:${var.azurerm_resource_group.resourceGroup.id}/providers/Microsoft.Web/sites/app-${var.appName}-${var.region}-${var.environment}" : "Resource"
+    "hidden-link:${var.resourceGroup.id}/providers/Microsoft.Web/sites/app-${var.appName}-${var.region}-${var.environment}" : "Resource"
   }
 }
 
