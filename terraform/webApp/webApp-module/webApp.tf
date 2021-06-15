@@ -49,7 +49,14 @@ resource "azurerm_app_service" "appService" {
   }
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY                           = azurerm_application_insights.appInsights.instrumentation_key
+    APPINSIGHTS_PROFILERFEATURE_VERSION                      = "1.0.0"
     APPLICATIONINSIGHTS_CONNECTION_STRING                    = azurerm_application_insights.appInsights.connection_string
+    ApplicationInsightsAgent_EXTENSION_VERSION               = "~2"
+    DiagnosticServices_EXTENSION_VERSION                     = "~3"
+    XDT_MicrosoftApplicationInsights_Mode                    = "default"
+    InstrumentationEngine_EXTENSION_VERSION                  = "~1"
+    XDT_MicrosoftApplicationInsights_BaseExtensions          = "~1"
+    XDT_MicrosoftApplicationInsights_PreemptSdk              = "1"
     "AzureAD:Domain"                                         = var.webAppDomain
     "AzureAD:ClientId"                                       = var.webAppClientId
     "AzureAD:TenantId"                                       = var.tenantId
@@ -63,6 +70,10 @@ resource "azurerm_app_service" "appService" {
     FeatureFlagSql                                           = "MANAGED_IDENTITY",
     FeatureFlagStorage                                       = "MANAGED_IDENTITY"
   }
+}
+
+resource "azurerm_monitor" "name" {
+  
 }
 
 data "azurerm_subnet" "appServiceSubnet" {
