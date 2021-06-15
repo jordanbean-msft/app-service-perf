@@ -69,6 +69,18 @@ variable "VNETNAME" {
   type = string
 }
 
+variable "CENTRALVNETNAME" {
+  type = string
+}
+
+variable "ADOAGENTSUBNETNAME" {
+  type = string
+}
+
+variable "CENTRALRESOURCEGROUPNAME" {
+  type = string
+}
+
 locals {
   longName  = "${var.APPNAME}-${var.REGION}-${var.ENVIRONMENT}"
   shortName = "${var.APPNAME}${var.REGION}${var.ENVIRONMENT}"

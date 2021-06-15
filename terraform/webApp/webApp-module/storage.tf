@@ -6,11 +6,11 @@ resource "azurerm_storage_account" "storageAccount" {
   account_replication_type = "LRS"
   allow_blob_public_access = false
   min_tls_version          = "TLS1_2"
-     network_rules {
-       default_action             = "Deny"
-       virtual_network_subnet_ids = [data.azurerm_subnet.appServiceSubnet.id]
-       bypass                     = ["AzureServices"]
-     }
+  network_rules {
+    default_action             = "Deny"
+    virtual_network_subnet_ids = [data.azurerm_subnet.appServiceSubnet.id, data.azurerm_subnet.adoAgentSubnet.id]
+    bypass                     = ["AzureServices"]
+  }
 }
 
 resource "azurerm_storage_container" "storageAccountContainer" {
@@ -66,7 +66,7 @@ resource "azurerm_monitor_diagnostic_setting" "storageLogging" {
 }
 
 resource "azurerm_key_vault_secret" "storageAccountConnectionString" {
-  name = "storageAccountConnectionString"
+  name         = "storageAccountConnectionString"
   key_vault_id = var.keyVault.id
-  value = azurerm_storage_account.storageAccount.primary_connection_string
+  value        = azurerm_storage_account.storageAccount.primary_connection_string
 }

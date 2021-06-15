@@ -61,5 +61,17 @@ variable "vNetName" {
 }
 
 variable "appServiceSubnetName" {
-  type = string  
+  type = string
+}
+
+variable "adoAgentSubnetName" {
+  type = string
+}
+
+variable "centralResourceGroupName" {
+  type = string
+}
+
+variable "centralvNetName" {
+  type = string
 }

@@ -20,7 +20,7 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 data "azurerm_key_vault" "keyVault" {
-  name = var.KEYVAULTNAME
+  name                = var.KEYVAULTNAME
   resource_group_name = var.RESOURCEGROUPNAME
 }
 
@@ -46,4 +46,7 @@ module "webApp" {
   webAppClientId                    = var.WEBAPPCLIENTID
   vNetName                          = var.VNETNAME
   appServiceSubnetName              = var.APPSERVICESUBNETNAME
+  centralvNetName                   = var.CENTRALVNETNAME
+  adoAgentSubnetName                = var.ADOAGENTSUBNETNAME
+  centralResourceGroupName          = var.CENTRALRESOURCEGROUPNAME
 }
