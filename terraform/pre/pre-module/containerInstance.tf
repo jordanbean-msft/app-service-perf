@@ -27,8 +27,8 @@ resource "azurerm_container_group" "containerGroup" {
   container {
     name = "adoagent"
     image = "crappserviceperfussccentral.azurecr.io/crappserviceperfussccentral/linux:ubuntu-16.04"
-    cpu = 1
-    memory = 1.0
+    cpu = 2
+    memory = 7.0
     ports {
         port = 443
         protocol = "TCP"
