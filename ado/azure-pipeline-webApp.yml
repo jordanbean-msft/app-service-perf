@@ -26,7 +26,7 @@ stages:
           inputs:
             azureSubscription: ${{ variables.serviceConnectionName }}
             resourceGroupName: ${{ variables.centralResourceGroupName }}
-            location: ${{ variables.location}}
+            location: ${{ variables.centralLocation}}
             azureDevOpsToken: $(System.AccessToken)
             containerRegistry: ${{ variables.centralContainerRegistryServiceConnectionName }}
             imageName: ${{ variables.centralImageName }}
