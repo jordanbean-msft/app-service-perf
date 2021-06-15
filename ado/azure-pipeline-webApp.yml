@@ -1,6 +1,7 @@
 name: WebApp 
 variables:
   - template: env/global.yml
+  - template: env/central.yml
   - template: env/dev.yml
   - template: env/test.yml
   - template: env/prod.yml
