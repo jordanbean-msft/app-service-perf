@@ -1,5 +1,7 @@
 variables:
   System.Debug: true
+  adoAgentPoolName: ephemeralpool
+  adoScriptDirectoryName: ado
   artifactName: WebApp
   backendAzureRmContainerName: appserviceperf
   backendAzureRmResourceGroupName: rg-terraform
@@ -15,6 +17,5 @@ variables:
   terraformPreDirectoryName: pre
   terraformWebAppDirectoryName: webApp
   webAppProjectName: AppServicePerf
-  webAppSolutionName: AppServicePerf
   webAppSQLMigrationScriptDirectoryName: SQL
-  adoAgentPoolName: ephemeralpool
+  webAppSolutionName: AppServicePerf

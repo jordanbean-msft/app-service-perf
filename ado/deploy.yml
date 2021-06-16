@@ -2,9 +2,10 @@ parameters:
   - name: artifactName
   - name: environmentName
   - name: globalTerraformVariableFilename
+  - name: pathToAdoScriptDirectory
   - name: pathToSQLMigrationDirectory
   - name: pathToTerraformDirectory
-  - name: pathToTerraformEnvironmentVariablesDirectory 
+  - name: pathToTerraformEnvironmentVariablesDirectory
   - name: serviceConnectionName
   - name: sqlServerAdminPassword
   - name: sqlServerAdminUsername
@@ -24,6 +25,7 @@ steps:
     parameters:
       migrationScriptPath: ${{ parameters.pathToSQLMigrationDirectory }}
       password: ${{ parameters.sqlServerAdminPassword }}
+      pathToAdoScriptDirectory: ${{ parameters.pathToAdoScriptDirectory }}
       sqlDatabaseName: $(sqlDatabaseName)
       sqlServerName: $(sqlServerName)
       username: ${{ parameters.sqlServerAdminUsername }}

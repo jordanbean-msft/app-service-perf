@@ -7,6 +7,7 @@ variables:
   - template: env/prod.yml
   - template: variables.yml
     parameters:
+      adoScriptDirectoryName: ${{ variables.adoScriptDirectoryName }}
       terraformDirectoryName: ${{ variables.terraformDirectoryName }}
       terraformEnvironmentVariablesDirectoryName: ${{ variables.terraformEnvironmentVariablesDirectoryName }}
       terraformWebAppDirectoryName: ${{ variables.terraformWebAppDirectoryName }}
@@ -65,6 +66,7 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.devEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToAdoScriptDirectory: ${{ variables.pathToAdoScriptDirectory }}
                 pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}

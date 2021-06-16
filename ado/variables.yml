@@ -1,13 +1,15 @@
 parameters:
+  - name: adoScriptDirectoryName
   - name: terraformDirectoryName
   - name: terraformEnvironmentVariablesDirectoryName
   - name: terraformWebAppDirectoryName
   - name: webAppProjectName
-  - name: webAppSolutionName
   - name: webAppSQLMigrationScriptDirectoryName
+  - name: webAppSolutionName
 
 variables:
   pathToTerraformEnvironmentVariablesDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformEnvironmentVariablesDirectoryName }}
   pathToTerraformWebAppDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformWebAppDirectoryName }}
   pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.webAppSolutionName }}/${{ parameters.webAppProjectName }}
   pathToSQLMigrationDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.webAppSolutionName }}/${{ parameters.webAppProjectName }}/${{ parameters.webAppSQLMigrationScriptDirectoryName }}
+  pathToAdoScriptDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.adoScriptDirectoryName }}
