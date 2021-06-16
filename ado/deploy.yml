@@ -26,8 +26,8 @@ steps:
       migrationScriptPath: ${{ parameters.pathToSQLMigrationDirectory }}
       password: ${{ parameters.sqlServerAdminPassword }}
       pathToAdoScriptDirectory: ${{ parameters.pathToAdoScriptDirectory }}
-      sqlDatabaseName: $(sqlDatabaseName)
-      sqlServerName: $(sqlServerName)
+      sqlDatabaseName: $(terraformOutput.sqlDatabaseName)
+      sqlServerName: $(terraformOutput.sqlServerName)
       username: ${{ parameters.sqlServerAdminUsername }}
   - template: deployWebApp.yml
     parameters:
