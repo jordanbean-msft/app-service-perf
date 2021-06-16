@@ -12,25 +12,20 @@ using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
-namespace AppServicePerf.Pages.Images
-{
-    public class DetailsModel : PageModel
-    {
+namespace AppServicePerf.Pages.Images {
+    public class DetailsModel : PageModel {
         private readonly AppServicePerf.Data.AppServicePerfContext _context;
         private readonly BlobServiceClient _blobServiceClient;
 
-        public DetailsModel(AppServicePerf.Data.AppServicePerfContext context, BlobServiceClient blobServiceClient)
-        {
+        public DetailsModel(AppServicePerf.Data.AppServicePerfContext context, BlobServiceClient blobServiceClient) {
             _context = context;
             _blobServiceClient = blobServiceClient;
         }
 
         public Image Image { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> OnGetAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
@@ -38,18 +33,27 @@ namespace AppServicePerf.Pages.Images
 
             if (Image == null) {
                 return NotFound();
-            } else {
+            }
+            else {
                 var containerClient = _blobServiceClient.GetBlobContainerClient("images");
-                var blobClient = containerClient.GetBlobClient(Image.FileName);
+                BlobClient blobClient;
 
-                using (var memoryStream = new MemoryStream()) { 
+                try {
+                    blobClient = containerClient.GetBlobClient(Image.FileName);
+                }
+                catch (Exception ex) {
+                    Exception newException = new($"Unable to find file {Image.FileName} in blob storage.", ex);
+                    throw newException;
+                }
+
+                using (var memoryStream = new MemoryStream()) {
                     try {
                         await blobClient.DownloadToAsync(memoryStream);
                     }
                     catch (Exception ex) {
-                        throw;
+                        Exception newException = new($"Unable to download file {Image.FileName} from blob storage.", ex);
+                        throw newException;
                     }
-
                     Image.File = memoryStream.ToArray();
                 }
             }

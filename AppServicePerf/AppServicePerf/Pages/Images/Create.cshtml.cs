@@ -56,7 +56,8 @@ namespace AppServicePerf.Pages.Images
                 var result = await client.UploadBlobAsync(FileName, file.OpenReadStream());
             } 
             catch (Exception ex) {
-                throw;
+                Exception newException = new($"Unable to upload file {file.FileName} to blob storage.", ex);
+                throw newException;
             }
             string imageFileHash;
 
@@ -65,7 +66,8 @@ namespace AppServicePerf.Pages.Images
                     await file.CopyToAsync(memoryStream);
                 }
                 catch (Exception ex) {
-                    throw;
+                    Exception newException = new($"Unable to compute hash on file {file.FileName}.", ex);
+                    throw newException;
                 }
 
                 byte[] tempImageArray = memoryStream.ToArray();
@@ -80,9 +82,22 @@ namespace AppServicePerf.Pages.Images
             Image.Hash = imageFileHash;
 
             _context.Images.Add(Image);
-            await _context.SaveChangesAsync();
 
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex) {
+                Exception newException = new($"Unable to save new file {file.FileName} to database.", ex);
+                throw newException;
+            }
+
+            try { 
             await _distributedCache.RemoveAsync("images");
+            }
+            catch (Exception ex) {
+                Exception newException = new($"Unable to update cache for {file.FileName}.", ex);
+                throw newException;
+            }
 
             return RedirectToPage("./Index");
         }

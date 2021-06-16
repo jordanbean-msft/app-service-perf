@@ -14,16 +14,13 @@ using System.IO;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 
-namespace AppServicePerf.Pages.Images
-{
-    public class EditModel : PageModel
-    {
+namespace AppServicePerf.Pages.Images {
+    public class EditModel : PageModel {
         private readonly AppServicePerfContext _context;
         private readonly BlobServiceClient _blobServiceClient;
         private readonly IDistributedCache _distributedCache;
 
-        public EditModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache)
-        {
+        public EditModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache) {
             _context = context;
             _blobServiceClient = blobServiceClient;
             _distributedCache = distributedCache;
@@ -32,31 +29,35 @@ namespace AppServicePerf.Pages.Images
         [BindProperty]
         public Image Image { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> OnGetAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             Image = await _context.Images.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Image == null)
-            {
+            if (Image == null) {
                 return NotFound();
             }
 
             var containerClient = _blobServiceClient.GetBlobContainerClient("images");
-            var blobClient = containerClient.GetBlobClient(Image.FileName);
+            BlobClient blobClient;
+            try {
+                blobClient = containerClient.GetBlobClient(Image.FileName);
+            }
+            catch (Exception ex) {
+                Exception newException = new($"Unable to find file {Image.FileName} in blob storage.", ex);
+                throw newException;
+            }
 
             using (var memoryStream = new MemoryStream()) {
                 try {
                     await blobClient.DownloadToAsync(memoryStream);
                 }
                 catch (Exception ex) {
-                    throw;
+                    Exception newException = new($"Unable to download file {Image.FileName} from blob storage.", ex);
+                    throw newException;
                 }
-
                 Image.File = memoryStream.ToArray();
             }
 
@@ -65,10 +66,8 @@ namespace AppServicePerf.Pages.Images
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(IFormFile file)
-        {
-            if (!ModelState.IsValid)
-            {
+        public async Task<IActionResult> OnPostAsync(IFormFile file) {
+            if (!ModelState.IsValid) {
                 return Page();
             }
 
@@ -83,9 +82,9 @@ namespace AppServicePerf.Pages.Images
                             await file.CopyToAsync(memoryStream);
                         }
                         catch (Exception ex) {
-                            throw;
+                            Exception newException = new($"Unable to read file {file.FileName} into memory.", ex);
+                            throw newException;
                         }
-
                         byte[] tempImageArray = memoryStream.ToArray();
 
                         tempFileHash = string.Concat(sha1.ComputeHash(tempImageArray).Select(x => x.ToString("X2")));
@@ -103,37 +102,38 @@ namespace AppServicePerf.Pages.Images
                         var result = await client.UploadBlobAsync(fileName, file.OpenReadStream());
                     }
                     catch (Exception ex) {
-                        throw;
+                        Exception newException = new($"Unable to upload new file {file.FileName} to blob storage.", ex);
+                        throw newException;
                     }
-
                     Image.Uri = new Uri(client.Uri, fileName);
                     Image.FileName = fileName;
                 }
             }
 
-            try
-            {
+            try {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ImageExists(Image.ID))
-                {
+            catch (DbUpdateConcurrencyException ex) {
+                if (!ImageExists(Image.ID)) {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
+                else {
+                    Exception newException = new($"Unable to upload new file {file.FileName} to database.", ex);
+                    throw newException;
                 }
             }
-
-            await _distributedCache.RemoveAsync("images");
+            try {
+                await _distributedCache.RemoveAsync("images");
+            }
+            catch (Exception ex) {
+                Exception newException = new($"Unable to update cache for {file.FileName}.", ex);
+                throw newException;
+            }
 
             return RedirectToPage("./Index");
         }
 
-        private bool ImageExists(int id)
-        {
+        private bool ImageExists(int id) {
             return _context.Images.Any(e => e.ID == id);
         }
     }

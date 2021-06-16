@@ -12,16 +12,13 @@ using System.IO;
 using System.Web;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace AppServicePerf.Pages.Images
-{
-    public class DeleteModel : PageModel
-    {
+namespace AppServicePerf.Pages.Images {
+    public class DeleteModel : PageModel {
         private readonly AppServicePerfContext _context;
         private readonly BlobServiceClient _blobServiceClient;
         private readonly IDistributedCache _distributedCache;
 
-        public DeleteModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache)
-        {
+        public DeleteModel(AppServicePerfContext context, BlobServiceClient blobServiceClient, IDistributedCache distributedCache) {
             _context = context;
             _blobServiceClient = blobServiceClient;
             _distributedCache = distributedCache;
@@ -30,46 +27,53 @@ namespace AppServicePerf.Pages.Images
         [BindProperty]
         public Image Image { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> OnGetAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             Image = await _context.Images.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Image == null)
-            {
+            if (Image == null) {
                 return NotFound();
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<IActionResult> OnPostAsync(int? id) {
+            if (id == null) {
                 return NotFound();
             }
 
             Image = await _context.Images.FindAsync(id);
 
-            if (Image != null)
-            {
+            if (Image != null) {
                 var client = _blobServiceClient.GetBlobContainerClient("images");
 
                 try {
                     var result = await client.DeleteBlobIfExistsAsync(Image.FileName);
                 }
                 catch (Exception ex) {
-                    throw;
+                    Exception newException = new($"Unable to delete file {Image.FileName} from blob storage.", ex);
+                    throw newException;
                 }
 
                 _context.Images.Remove(Image);
-                await _context.SaveChangesAsync();
 
-                await _distributedCache.RemoveAsync("images");
+                try {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex) {
+                    Exception newException = new($"Unable to save new file {Image.FileName} to database.", ex);
+                    throw newException;
+                }
+                try {
+                    await _distributedCache.RemoveAsync("images");
+                }
+                catch (Exception ex) {
+                    Exception newException = new($"Unable to update cache for {Image.FileName}.", ex);
+                    throw newException;
+                }
             }
 
             return RedirectToPage("./Index");
