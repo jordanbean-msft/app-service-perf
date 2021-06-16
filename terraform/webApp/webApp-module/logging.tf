@@ -3,9 +3,6 @@ resource "azurerm_application_insights" "appInsights" {
   resource_group_name = var.resourceGroup.name
   location            = var.resourceGroup.location
   application_type    = "web"
-  tags = {
-    "hidden-link:${var.resourceGroup.id}/providers/Microsoft.Web/sites/app-${var.appName}-${var.region}-${var.environment}" : "Resource"
-  }
 }
 
 resource "azurerm_monitor_action_group" "appInsightsSmartDetection" {

@@ -48,27 +48,31 @@ resource "azurerm_app_service" "appService" {
     type = "SystemAssigned"
   }
   app_settings = {
-    APPINSIGHTS_INSTRUMENTATIONKEY                           = azurerm_application_insights.appInsights.instrumentation_key
-    APPINSIGHTS_PROFILERFEATURE_VERSION                      = "1.0.0"
-    APPLICATIONINSIGHTS_CONNECTION_STRING                    = azurerm_application_insights.appInsights.connection_string
-    ApplicationInsightsAgent_EXTENSION_VERSION               = "~2"
-    DiagnosticServices_EXTENSION_VERSION                     = "~3"
-    XDT_MicrosoftApplicationInsights_Mode                    = "default"
-    InstrumentationEngine_EXTENSION_VERSION                  = "~1"
-    XDT_MicrosoftApplicationInsights_BaseExtensions          = "~1"
-    XDT_MicrosoftApplicationInsights_PreemptSdk              = "1"
-    "AzureAD:Domain"                                         = var.webAppDomain
     "AzureAD:ClientId"                                       = var.webAppClientId
-    "AzureAD:TenantId"                                       = var.tenantId
     "AzureAD:ClientSecret"                                   = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.webAppClientSecret.name})"
-    "Storage:ServiceUri"                                     = azurerm_storage_account.storageAccount.primary_blob_endpoint
-    "ConnectionStrings:StorageAccount"                       = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.storageAccountConnectionString.name})"
+    "AzureAD:Domain"                                         = var.webAppDomain
+    "AzureAD:TenantId"                                       = var.tenantId
     "ConnectionStrings:AppServicePerfManagedIdentityContext" = "Server=tcp:${azurerm_mssql_server.sqlServer.fully_qualified_domain_name},1433;Database=${azurerm_mssql_database.sqlServerDatabase.name};"
     "ConnectionStrings:AppServicePerfSqlPasswordContext"     = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.sqlServerConnectionString.name})"
     "ConnectionStrings:RedisCache"                           = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.cacheCredentialSecret.name})"
-    WEBSITE_RUN_FROM_PACKAGE                                 = 1
+    "ConnectionStrings:StorageAccount"                       = "@Microsoft.KeyVault(VaultName=${var.keyVault.name};SecretName=${data.azurerm_key_vault_secret.storageAccountConnectionString.name})"
+    "Storage:ServiceUri"                                     = azurerm_storage_account.storageAccount.primary_blob_endpoint
+    APPINSIGHTS_INSTRUMENTATIONKEY                           = azurerm_application_insights.appInsights.instrumentation_key
+    APPINSIGHTS_PROFILERFEATURE_VERSION                      = "1.0.0"
+    APPINSIGHTS_SNAPSHOTFEATURE_VERSION                      = "1.0.0"
+    APPLICATIONINSIGHTS_CONNECTION_STRING                    = azurerm_application_insights.appInsights.connection_string
+    ApplicationInsightsAgent_EXTENSION_VERSION               = "~2"
+    DiagnosticServices_EXTENSION_VERSION                     = "~3"
     FeatureFlagSql                                           = "MANAGED_IDENTITY",
     FeatureFlagStorage                                       = "MANAGED_IDENTITY"
+    InstrumentationEngine_EXTENSION_VERSION                  = "~1"
+    SnapshotDebugger_EXTENSION_VERSION                       = "~1"
+    WEBSITE_RUN_FROM_PACKAGE                                 = 1
+    XDT_MicrosoftApplicationInsights_BaseExtensions          = "~1"
+    XDT_MicrosoftApplicationInsights_Java                    = "1"
+    XDT_MicrosoftApplicationInsights_Mode                    = "recommended"
+    XDT_MicrosoftApplicationInsights_NodeJS                  = "1"
+    XDT_MicrosoftApplicationInsights_PreemptSdk              = "1"
   }
 }
 
