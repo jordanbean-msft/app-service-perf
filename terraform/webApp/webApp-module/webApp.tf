@@ -93,10 +93,88 @@ resource "azurerm_app_service_virtual_network_swift_connection" "appServicePlanv
   subnet_id      = data.azurerm_subnet.appServiceSubnet.id
 }
 
-resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
-  name                       = "appServiceLogging"
+resource "azurerm_monitor_diagnostic_setting" "appServicePlanLogging" {
+  name                       = "appServicePlanLogging"
   target_resource_id         = azurerm_app_service_plan.appServicePlan.id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
+  metric {
+    category = "AllMetrics"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+}
+
+resource "azurerm_monitor_diagnostic_setting" "appServiceLogging" {
+  name                       = "appServiceLogging"
+  target_resource_id         = azurerm_app_service.appService.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logAnalyticsWorkspace.id
+  log {
+    category = "AppServiceAntivirusScanAuditLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceHTTPLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceConsoleLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceAppLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceFileAuditLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceAuditLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServiceIPSecAuditLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
+  log {
+    category = "AppServicePlatformLogs"
+    enabled  = true
+    retention_policy {
+      days    = 0
+      enabled = true
+    }
+  }
   metric {
     category = "AllMetrics"
     enabled  = true
