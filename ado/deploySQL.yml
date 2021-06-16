@@ -11,5 +11,5 @@ steps:
     inputs:
       targetType: filePath
       filePath: deploySqlModels.sh
-      arguments: -s ${{ parameters.sqlServerName }} -d ${{ parameters.sqlDatabaseName }} -u ${{ parameters.username }} -p ${{ parameters.password }} -m "${{ parameters.pathToWebAppProjectDirectory }}/SQL"
+      arguments: -s ${{ parameters.sqlServerName }} -d ${{ parameters.sqlDatabaseName }} -u ${{ parameters.username }} -p ${{ parameters.password }} -m "${{ parameters.migrationScriptPath }}/SQL"
       failOnStderr: true
