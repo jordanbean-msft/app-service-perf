@@ -115,6 +115,7 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.testEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToAdoScriptDirectory: ${{ variables.pathToAdoScriptDirectory }}
                 pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
@@ -163,6 +164,7 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.prodEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToAdoScriptDirectory: ${{ variables.pathToAdoScriptDirectory }}
                 pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
