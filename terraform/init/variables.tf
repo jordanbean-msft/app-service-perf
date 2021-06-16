@@ -31,7 +31,7 @@ variable "CENTRALVIRTUALNETWORKNAME" {
 }
 
 variable "CENTRALRESOURCEGROUPNAME" {
-  type = string  
+  type = string
 }
 
 variable "CENTRALADOAGENTADDRESSPREFIX" {

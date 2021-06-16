@@ -19,7 +19,7 @@ variable "location" {
 }
 
 variable "addressSpace" {
-  type = string 
+  type = string
 }
 
 variable "adoAgentAddressPrefix" {

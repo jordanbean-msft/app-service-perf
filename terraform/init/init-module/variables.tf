@@ -23,11 +23,11 @@ variable "blockId" {
 }
 
 variable "centralVirtualNetworkName" {
-  type = string 
+  type = string
 }
 
 variable "centralResourceGroupName" {
-  type = string 
+  type = string
 }
 
 variable "environment" {

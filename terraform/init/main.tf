@@ -20,15 +20,15 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 module "init" {
-  source        = "./init-module"
-  longName      = local.longName
-  shortName     = local.shortName
-  tenantId      = var.WEBAPPTENANTID
-  addressSpace  = var.ADDRESSSPACE
-  location      = var.LOCATION
-  blockId       = var.BLOCKID
-  centralVirtualNetworkName = var.CENTRALVIRTUALNETWORKNAME
-  centralResourceGroupName = var.CENTRALRESOURCEGROUPNAME
-  environment = var.ENVIRONMENT
+  source                       = "./init-module"
+  longName                     = local.longName
+  shortName                    = local.shortName
+  tenantId                     = var.WEBAPPTENANTID
+  addressSpace                 = var.ADDRESSSPACE
+  location                     = var.LOCATION
+  blockId                      = var.BLOCKID
+  centralVirtualNetworkName    = var.CENTRALVIRTUALNETWORKNAME
+  centralResourceGroupName     = var.CENTRALRESOURCEGROUPNAME
+  environment                  = var.ENVIRONMENT
   centralAdoAgentAddressPrefix = var.CENTRALADOAGENTADDRESSPREFIX
 }
