@@ -1,0 +1,15 @@
+parameters:
+  - name: migrationScriptPath
+  - name: password
+  - name: sqlDatabaseName
+  - name: sqlServerName
+  - name: username
+
+steps:
+  - task: Bash@3
+    displayName: Execution SQL migration scripts
+    inputs:
+      targetType: filePath
+      filePath: deploySqlModels.sh
+      arguments: -s ${{ parameters.sqlServerName }} -d ${{ parameters.sqlDatabaseName }} -u ${{ parameters.username }} -p ${{ parameters.password }} -m "${{ parameters.pathToWebAppProjectDirectory }}/SQL"
+      failOnStderr: true

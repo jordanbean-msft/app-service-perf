@@ -16,4 +16,5 @@ variables:
   terraformWebAppDirectoryName: webApp
   webAppProjectName: AppServicePerf
   webAppSolutionName: AppServicePerf
+  webAppSQLMigrationScriptDirectoryName: SQL
   adoAgentPoolName: ephemeralpool

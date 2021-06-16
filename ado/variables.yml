@@ -4,8 +4,10 @@ parameters:
   - name: terraformWebAppDirectoryName
   - name: webAppProjectName
   - name: webAppSolutionName
+  - name: webAppSQLMigrationScriptDirectoryName
 
 variables:
   pathToTerraformEnvironmentVariablesDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformEnvironmentVariablesDirectoryName }}
   pathToTerraformWebAppDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.terraformDirectoryName }}/${{ parameters.terraformWebAppDirectoryName }}
   pathToWebAppProjectDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.webAppSolutionName }}/${{ parameters.webAppProjectName }}
+  pathToSQLMigrationDirectory: $(System.DefaultWorkingDirectory)/${{ parameters.webAppSolutionName }}/${{ parameters.webAppProjectName }}/${{ parameters.webAppSQLMigrationScriptDirectoryName }}

@@ -12,6 +12,7 @@ variables:
       terraformWebAppDirectoryName: ${{ variables.terraformWebAppDirectoryName }}
       webAppProjectName: ${{ variables.webAppProjectName }}
       webAppSolutionName: ${{ variables.webAppSolutionName }}
+      webAppSQLMigrationScriptDirectoryName: ${{ variables.webAppSQLMigrationScriptDirectoryName }}
 trigger:
   - main
 stages:
@@ -64,9 +65,12 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.devEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
+                sqlServerAdminPassword: $(sqlServerAdminPassword)
+                sqlServerAdminUsername: $(sqlServerAdminUsername)
                 webAppProjectName: ${{ variables.webAppProjectName }}
     - job: waitForValidation
       displayName: Wait for validation

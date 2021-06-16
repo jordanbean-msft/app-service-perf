@@ -2,9 +2,12 @@ parameters:
   - name: artifactName
   - name: environmentName
   - name: globalTerraformVariableFilename
+  - name: pathToSQLMigrationDirectory
   - name: pathToTerraformDirectory
   - name: pathToTerraformEnvironmentVariablesDirectory 
   - name: serviceConnectionName
+  - name: sqlServerAdminPassword
+  - name: sqlServerAdminUsername
   - name: webAppProjectName
 
 steps:
@@ -17,6 +20,13 @@ steps:
       globalTerraformVariableFilename: ${{ parameters.globalTerraformVariableFilename }}
       pathToTerraformDirectory: ${{ parameters.pathToTerraformDirectory }}
       pathToTerraformEnvironmentVariablesDirectory: ${{ parameters.pathToTerraformEnvironmentVariablesDirectory }}
+  - template: deploySQL.yml
+    parameters:
+      migrationScriptPath: ${{ parameters.pathToSQLMigrationDirectory }}
+      password: ${{ parameters.sqlServerAdminPassword }}
+      sqlDatabaseName: $(sqlDatabaseName)
+      sqlServerName: $(sqlServerName)
+      username: ${{ parameters.sqlServerAdminUsername }}
   - template: deployWebApp.yml
     parameters:
       appServiceName: $(terraformOutput.appServiceName) 
