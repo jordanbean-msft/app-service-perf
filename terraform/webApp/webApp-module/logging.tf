@@ -22,6 +22,26 @@ resource "azurerm_monitor_action_group" "appInsightsSmartDetection" {
   }
 }
 
+resource "azurerm_monitor_metric_alert" "allExceptionsMetricAlert" {
+  name                = "allExceptionsMetricAlert"
+  resource_group_name = var.resourceGroup.name
+  scopes = [
+    azurerm_application_insights.appInsights.id
+  ]
+  severity = 3
+  criteria {
+    metric_namespace = "Microsoft.Insights/components"
+    metric_name      = "exceptions/count"
+    aggregation      = "Count"
+    operator         = "GreaterThan"
+    threshold        = 1
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.appInsightsSmartDetection.id
+  }
+}
+
 resource "azurerm_log_analytics_workspace" "logAnalyticsWorkspace" {
   name                = "log-${var.longName}"
   resource_group_name = var.resourceGroup.name
