@@ -113,9 +113,12 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.testEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
+                sqlServerAdminPassword: $(sqlServerAdminPassword)
+                sqlServerAdminUsername: $(sqlServerAdminUsername)
                 webAppProjectName: ${{ variables.webAppProjectName }}
     - job: waitForValidation
       displayName: Wait for validation
@@ -158,7 +161,10 @@ stages:
                 artifactName: ${{ variables.artifactName }}
                 environmentName: ${{ variables.prodEnvironmentName }}
                 globalTerraformVariableFilename: ${{ variables.globalTerraformVariableFilename }}
+                pathToSQLMigrationDirectory: ${{ variables.pathToSQLMigrationDirectory }}
                 pathToTerraformDirectory: ${{ variables.pathToTerraformWebAppDirectory }}
                 pathToTerraformEnvironmentVariablesDirectory: ${{ variables.pathToTerraformEnvironmentVariablesDirectory }}
                 serviceConnectionName: ${{ variables.serviceConnectionName }}
+                sqlServerAdminPassword: $(sqlServerAdminPassword)
+                sqlServerAdminUsername: $(sqlServerAdminUsername)
                 webAppProjectName: ${{ variables.webAppProjectName }}
