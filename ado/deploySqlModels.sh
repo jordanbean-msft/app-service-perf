@@ -15,4 +15,4 @@ for sqlScript in "$migrationScriptPath"/*.sql; do
   echo "Executing SQL migration script $sqlScript..."
   /opt/mssql-tools/bin/sqlcmd -S tcp:$serverName.database.windows.net -d $databaseName -U $username -P $password -r -R -i "$sqlScript"
   echo "Executed SQL migration script $sqlScript."
-done
+done | exit 1
