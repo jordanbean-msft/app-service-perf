@@ -1,7 +1,6 @@
 #!/bin/bash
 
-while getopts s:d:u:p:m flag
-do
+while getopts "s:d:u:p:m:" flag; do
   case "${flag}" in
     s) serverName=${OPTARG};;
     d) databaseName=${OPTARG};;
