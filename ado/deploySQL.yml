@@ -14,3 +14,5 @@ steps:
       filePath: ${{ parameters.pathToAdoScriptDirectory }}/deploySqlModels.sh
       arguments: -s ${{ parameters.sqlServerName }} -d ${{ parameters.sqlDatabaseName }} -u ${{ parameters.username }} -p ${{ parameters.password }} -m "${{ parameters.migrationScriptPath }}"
       failOnStderr: true
+      noProfile: false
+      noRc: false
