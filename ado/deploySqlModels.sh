@@ -13,6 +13,9 @@ done
 
 for sqlScript in "$migrationScriptPath"/*.sql; do
   echo "Executing SQL migration script $sqlScript..."
-  /opt/mssql-tools/bin/sqlcmd -S tcp:$serverName.database.windows.net -d $databaseName -U $username -P $password -r -R -i "$sqlScript"
+  if ! output=$(/opt/mssql-tools/bin/sqlcmd -S tcp:$serverName.database.windows.net -d $databaseName -U $username -P $password -r -R -i "$sqlScript"); then
+    exit $?
+  fi
+  
   echo "Executed SQL migration script $sqlScript."
 done | exit 1
