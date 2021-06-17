@@ -11,7 +11,7 @@ do
   esac
 done
 
-for sqlScript in "${migrationScriptPath}/*"
+for sqlScript in $migrationScriptPath/*
 do
   echo "Executing SQL migration script $sqlScript..."
   /opt/mssql-tools/bin/sqlcmd -S tcp:$databaseName $serverName.database.windows.net -U $username -P $password -r -R -i ./$sqlScript
