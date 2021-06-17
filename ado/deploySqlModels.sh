@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 while getopts "s:d:u:p:m:" flag; do
   case "${flag}" in
