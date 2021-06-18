@@ -12,10 +12,10 @@ while getopts "s:d:u:p:m:" flag; do
 done
 
 for sqlScript in "$migrationScriptPath"/*.sql; do
+
   echo "Executing SQL migration script $sqlScript..."
-  if ! output=$(/opt/mssql-tools/bin/sqlcmd -S tcp:$serverName.database.windows.net -d $databaseName -U $username -P $password -r -R -i "$sqlScript"); then
-    echo "ERROR: $output"
-    break $?
-  fi
+
+  /opt/mssql-tools/bin/sqlcmd -S tcp:$serverName.database.windows.net -d $databaseName -U $username -P $password -r -R -b -i "$sqlScript"
+
   echo "Executed SQL migration script $sqlScript."
 done
