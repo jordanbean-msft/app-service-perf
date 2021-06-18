@@ -101,7 +101,13 @@ stages:
         - name: TF_VAR_APPSERVICESUBNETNAME
           value: ${{ variables.testAppServiceSubnetName }} 
         - name: TF_VAR_VNETNAME
-          value: ${{ variables.testvNetName }} 
+          value: ${{ variables.testvNetName }}
+        - name: TF_VAR_CENTRALRESOURCEGROUPNAME
+          value: ${{ variables.centralResourceGroupName }}
+        - name: TF_VAR_CENTRALVNETNAME
+          value: ${{ variables.centralvNetName }}
+        - name: TF_VAR_ADOAGENTSUBNETNAME
+          value: ${{ variables.centralAdoAgentSubnetName }} 
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
@@ -151,6 +157,12 @@ stages:
           value: ${{ variables.prodAppServiceSubnetName }} 
         - name: TF_VAR_VNETNAME
           value: ${{ variables.prodvNetName }} 
+        - name: TF_VAR_CENTRALRESOURCEGROUPNAME
+          value: ${{ variables.centralResourceGroupName }}
+        - name: TF_VAR_CENTRALVNETNAME
+          value: ${{ variables.centralvNetName }}
+        - name: TF_VAR_ADOAGENTSUBNETNAME
+          value: ${{ variables.centralAdoAgentSubnetName }}
         - name: ARM_SUBSCRIPTION_ID
           value: ${{ variables.subscriptionId }}
         - name: ARM_TENANT_ID
