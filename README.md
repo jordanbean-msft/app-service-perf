@@ -4,6 +4,18 @@ This is a demo of how to deploy a web app using App Service, Redis, Azure SQL, e
 
 NO WARRANTY is provided for this code. This is demo code provided only as an example.
 
+## Steps
+
+1. Run pre script to create central vNet
+2. Deploy Azure DevOps self-hosted agent to vNet
+3. Run init script to create specific environment (DEV, TEST, PROD) vNet, Key Vault
+4. Add secrets to Key Vault
+5. Add Azure DevOps variable groups for each environment & pull secrets from Key Vault
+6. Set up Azure DevOps YAML pipeline to deploy each environment
+7. Run Azure DevOps YAML pipeline
+
+## Azure DevOps setup
+
 ## Useful scripts
 
 ### Pre
