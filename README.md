@@ -1,5 +1,9 @@
 # app-service-perf
 
+This is a demo of how to deploy a web app using App Service, Redis, Azure SQL, etc using Azure DevOps & Terraform.
+
+NO WARRANTY is provided for this code. This is demo code provided only as an example.
+
 ## Useful scripts
 
 ### Pre
