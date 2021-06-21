@@ -4,6 +4,9 @@ This is a demo of how to deploy a web app using App Service, Redis, Azure SQL, e
 
 NO WARRANTY is provided for this code. This is demo code provided only as an example.
 
+## Architecture
+![architecture](./architecture.png)
+
 ## Steps
 
 1. Run pre script to create central vNet
@@ -24,6 +27,13 @@ The deployment scripts expect the following secrets to be added to your Key Vaul
 - webAppClientSecret - the client secret for the web app's service prinicpal
 
 You will also need to grant your pipeline service principal the **Key Vault Administrator** role so it can pull secrets from Key Vault when the pipeline runs.
+
+## Repo structure
+The repo is divided into 3 major sections, each in its own directory.
+
+- ado - the Azure DevOps YAML pipeline & associated scripts
+- AppServicePerf - the C# ADO.NET Core web app
+- terraform - the Terraform modules that deploy the Infrastructure as Code (IaC)
 
 ## Useful scripts
 
